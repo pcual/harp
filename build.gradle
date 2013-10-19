@@ -1,1 +1,15 @@
 apply plugin: 'java'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'org.codehaus.groovy:groovy:2.1.7'
+}
+
+// This task is for testing purposes. It runs HarpMain.main().
+task(runHarpMain, dependsOn: 'build', type: JavaExec) {
+  main = 'harp.HarpMain'
+  classpath = sourceSets.main.runtimeClasspath
+}

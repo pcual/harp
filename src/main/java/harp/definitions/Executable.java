@@ -14,21 +14,16 @@
  * limitations under the License.
  */
 
-package harp;
+package harp.definitions;
 
-import groovy.lang.GroovyShell;
+import java.util.List;
 
 /**
  * TODO
  */
-public final class HarpMain {
+public interface Executable {
 
-  public static void main(String[] args) {
-    System.out.println("Hello Harp!");
+  String getCommand();
 
-    GroovyShell shell = new GroovyShell();
-    Object scriptResult = shell.evaluate("return 7 + 2;");
-    System.out.println("scriptResult: " + scriptResult);
-  }
-
+  List<String> getArgs();
 }
