@@ -1,2 +1,5 @@
 .gradle/
 build/
+
+# Netbeans gradle plugin
+.nb-gradle*
