@@ -5,11 +5,13 @@ repositories {
 }
 
 dependencies {
+  // TODO can I use the minimal repo?
   compile 'org.codehaus.groovy:groovy:2.1.7'
+  compile 'com.google.guava:guava:15.0'
 }
 
 // This task is for testing purposes. It runs HarpMain.main().
-task(runHarpMain, dependsOn: 'build', type: JavaExec) {
+task(runHarpMain, type: JavaExec) {
   main = 'harp.HarpMain'
   classpath = sourceSets.main.runtimeClasspath
 }

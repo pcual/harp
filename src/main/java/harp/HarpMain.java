@@ -16,6 +16,8 @@
 
 package harp;
 
+import com.google.common.base.Joiner;
+import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 
 /**
@@ -26,9 +28,23 @@ public final class HarpMain {
   public static void main(String[] args) {
     System.out.println("Hello Harp!");
 
-    GroovyShell shell = new GroovyShell();
-    Object scriptResult = shell.evaluate("return 7 + 2;");
-    System.out.println("scriptResult: " + scriptResult);
+    ContextBuilder builder = Context.builder();
+
+    Binding binding = new Binding();
+    binding.setVariable("context", builder);
+    GroovyShell shell = new GroovyShell(binding);
+
+    Object scriptResult = shell.evaluate(Joiner.on("\n").join(
+        "import harp.definitions.Executable;",
+        "println \"Context: \" + context",
+        "context.addExecutable(new Executable() {",
+        "  public String getCommand() { return \"some_command\"; }",
+        "  public List<String> getArgs() { return null; }",
+        "})"
+        ));
+
+    Context context = builder.build();
+    System.out.println("scriptResult: " + context.getExecutables().get(0).getCommand());
   }
 
 }

@@ -14,17 +14,31 @@
  * limitations under the License.
  */
 
-package harp.definitions;
+package harp;
 
+import com.google.common.collect.ImmutableList;
+import harp.definitions.Executable;
 import java.util.List;
 
 /**
  * TODO
  */
-public interface Executable {
+final class Context {
 
-  String getCommand();
+  private final List<Executable> executables;
 
-  List<String> getArgs();
+  Context(List<Executable> executables) {
+    this.executables = ImmutableList.copyOf(executables);
+  }
 
+  List<Executable> getExecutables() {
+    return executables;
+  }
+
+  /**
+   * TODO
+   */
+  public static final ContextBuilder builder() {
+    return new ContextBuilder();
+  }
 }
