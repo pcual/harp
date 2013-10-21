@@ -23,8 +23,9 @@ import java.util.List;
  */
 public interface Executable {
 
-  String getCommand();
-
+  /**
+   * TODO
+   */
   List<String> getArgs();
 
 }

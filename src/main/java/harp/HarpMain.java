@@ -43,7 +43,9 @@ public final class HarpMain {
 
     Object scriptResult = shell.evaluate(Joiner.on("\n").join(
         "println \"Running!\"",
-        "someMethod()"
+        "someMethod {",
+        "  myArg 7",
+        "}"
         ));
 
     //Context context = builder.build();
