@@ -8,6 +8,8 @@ dependencies {
   // TODO can I use the minimal repo?
   compile 'org.codehaus.groovy:groovy:2.1.7'
   compile 'com.google.guava:guava:15.0'
+
+  testCompile 'junit:junit:4.11'
 }
 
 // This task is for testing purposes. It runs HarpMain.main().
