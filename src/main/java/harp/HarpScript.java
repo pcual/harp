@@ -16,37 +16,35 @@
 
 package harp;
 
+import harp.definitions.ExecutableBuilder;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import groovy.lang.Closure;
 import groovy.lang.Script;
+import harp.definitions.Executable;
+import java.util.List;
 
 /**
  * TODO
  */
 public abstract class HarpScript extends Script {
 
-  // TODO remove this testing class
-  public static class ForClosureModification {
-    public void myArg(int n) {
-      System.out.println("You called myArg with arg: " + n);
-    }
+  /**
+   * TODO
+   */
+  public void executable(Closure closure) {
+    closure.setResolveStrategy(Closure.DELEGATE_ONLY);
+    ExecutableBuilder builder = new ExecutableBuilder();
+    closure.setDelegate(builder);
+    closure.call();
+    Executable executable = builder.build();
+    ((ContextBuilder) getProperty("contextToBuild")).addExecutable(executable);
   }
 
-  /*
-  @Override
-  public Object invokeMethod(String name, Object args) {
-    System.out.println("Harp invoking method name: " + name + "; args: " + args);
-    return super.invokeMethod(name, args);
-  }*/
-
-  public void someMethod(Closure closure) {
-    System.out.println("You called some method!");
-    System.out.println("Delegate: " + closure.getDelegate());
-    System.out.println("Owner: " + closure.getOwner());
-    System.out.println("This object: " + closure.getThisObject());
-    closure.setResolveStrategy(Closure.DELEGATE_ONLY);
-    ForClosureModification delegate = new ForClosureModification();
-    closure.setDelegate(delegate);
-    System.out.println("Delegate again: " + closure.getDelegate());
-    closure.call();
+  /**
+   * TODO
+   */
+  public void executable(Executable executable) {
+    ((ContextBuilder) getProperty("contextToBuild")).addExecutable(executable);
   }
 }

@@ -16,6 +16,10 @@
 
 package harp;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.ImmutableList;
+import harp.definitions.Executable;
+import java.util.List;
 import junit.framework.TestCase;
 
 /**
@@ -23,7 +27,52 @@ import junit.framework.TestCase;
  */
 public class HarpScriptTest extends TestCase {
 
-  public void testStub() {
-    assertTrue(5 > 4);
+  public void testAddExecutableWithClosure() {
+    String script = Joiner.on("\n").join(
+        "executable {",
+        "  name 'myExec'",
+        "  args 'arg1', 'arg2', 'arg3'",
+        "}"
+        );
+    Context result = GroovyRunner.parseHarpScript(script);
+
+    List<Executable> executables = result.getExecutables();
+    assertEquals(1, executables.size());
+    assertEquals("myExec", executables.get(0).getName());
+    assertEquals(ImmutableList.of("arg1", "arg2", "arg3"), executables.get(0).getArgs());
+  }
+
+  public void testAddExecutableWithMap() {
+    String script = Joiner.on("\n").join(
+        "myExec = [",
+        "  getName: { 'myExec' },",
+        "  getArgs: { [ 'arg1', 'arg2', 'arg3' ] }",
+        "] as Executable",
+        "executable myExec"
+        );
+
+    Context result = GroovyRunner.parseHarpScript(script);
+
+    List<Executable> executables = result.getExecutables();
+    assertEquals(1, executables.size());
+    assertEquals("myExec", executables.get(0).getName());
+    assertEquals(ImmutableList.of("arg1", "arg2", "arg3"), executables.get(0).getArgs());
+  }
+
+  public void testAddExecutableWithClass() {
+    String script = Joiner.on("\n").join(
+        "public class MyExec implements Executable {",
+        "  String name = 'myExec'",
+        "  List<String> args = [ 'arg1', 'arg2', 'arg3' ]",
+        "}",
+        "executable new MyExec()"
+        );
+
+    Context result = GroovyRunner.parseHarpScript(script);
+
+    List<Executable> executables = result.getExecutables();
+    assertEquals(1, executables.size());
+    assertEquals("myExec", executables.get(0).getName());
+    assertEquals(ImmutableList.of("arg1", "arg2", "arg3"), executables.get(0).getArgs());
   }
 }

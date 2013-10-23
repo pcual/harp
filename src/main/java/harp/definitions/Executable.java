@@ -26,6 +26,11 @@ public interface Executable {
   /**
    * TODO
    */
+  String getName();
+
+  /**
+   * TODO
+   */
   List<String> getArgs();
 
 }

@@ -16,11 +16,6 @@
 
 package harp;
 
-import com.google.common.base.Joiner;
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
-import org.codehaus.groovy.control.CompilerConfiguration;
-
 /**
  * TODO
  */
@@ -28,28 +23,6 @@ public final class HarpMain {
 
   public static void main(String[] args) {
     System.out.println("Hello Harp!");
-
-    ContextBuilder builder = Context.builder();
-
-    Binding binding = new Binding();
-    binding.setVariable("context", builder);
-
-    // TODO set a property or variable for the context builder so that I can access it in
-    // HarpScript code for delegation purposes?
-    CompilerConfiguration config = new CompilerConfiguration();
-    config.setScriptBaseClass(HarpScript.class.getCanonicalName());
-
-    GroovyShell shell = new GroovyShell(binding, config);
-
-    Object scriptResult = shell.evaluate(Joiner.on("\n").join(
-        "println \"Running!\"",
-        "someMethod {",
-        "  myArg 7",
-        "}"
-        ));
-
-    //Context context = builder.build();
-    //System.out.println("scriptResult: " + context.getExecutables().get(0).getCommand());
   }
 
 }
