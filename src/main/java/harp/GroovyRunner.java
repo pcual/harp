@@ -19,7 +19,6 @@ package harp;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import org.codehaus.groovy.control.CompilerConfiguration;
-import org.codehaus.groovy.control.customizers.ImportCustomizer;
 
 /**
  * TODO
@@ -39,10 +38,6 @@ public class GroovyRunner {
 
     CompilerConfiguration config = new CompilerConfiguration();
     config.setScriptBaseClass(HarpScript.class.getCanonicalName());
-
-    ImportCustomizer importer = new ImportCustomizer();
-    importer.addImports("harp.definitions.Executable");
-    config.addCompilationCustomizers(importer);
 
     GroovyShell shell = new GroovyShell(binding, config);
     shell.setProperty("contextToBuild", builder);

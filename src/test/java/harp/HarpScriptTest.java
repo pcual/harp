@@ -47,7 +47,7 @@ public class HarpScriptTest extends TestCase {
         "myExec = [",
         "  getName: { 'myExec' },",
         "  getArgs: { [ 'arg1', 'arg2', 'arg3' ] }",
-        "] as Executable",
+        "] as harp.definitions.Executable",
         "executable myExec"
         );
 
@@ -61,7 +61,7 @@ public class HarpScriptTest extends TestCase {
 
   public void testAddExecutableWithClass() {
     String script = Joiner.on("\n").join(
-        "public class MyExec implements Executable {",
+        "public class MyExec implements harp.definitions.Executable {",
         "  String name = 'myExec'",
         "  List<String> args = [ 'arg1', 'arg2', 'arg3' ]",
         "}",

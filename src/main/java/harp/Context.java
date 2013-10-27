@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * TODO
  */
-final class Context {
+public final class Context {
 
   private final List<Executable> executables;
 
