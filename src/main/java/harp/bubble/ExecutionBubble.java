@@ -14,32 +14,26 @@
  * limitations under the License.
  */
 
-package harp;
+package harp.bubble;
 
-import com.google.common.collect.ImmutableList;
 import harp.executable.Executable;
-import java.util.List;
+import java.io.File;
 
 /**
- * TODO
+ * An ExecutionBubble is an isolated environment in which a single {@link Executable} is run.
+ *
+ * <p>Roughly speaking, an {@code ExecutionBubble} corresponds to a temporary directory.
  */
-public final class Context {
-
-  private final List<Executable> executables;
-
-  Context(List<Executable> executables) {
-    this.executables = ImmutableList.copyOf(executables);
-  }
-
-  // TODO do we even need an ordered collection? Would Set work?
-  List<Executable> getExecutables() {
-    return executables;
-  }
+public interface ExecutionBubble {
 
   /**
-   * TODO
+   * Returns the filesystem location of this bubble, i.e. the temporary directory to which it
+   * corresponds.
    */
-  public static final ContextBuilder builder() {
-    return new ContextBuilder();
-  }
+  File getLocation();
+
+  /**
+   * Clean up all resources used by this bubble.
+   */
+  void cleanUp();
 }

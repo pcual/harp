@@ -14,32 +14,23 @@
  * limitations under the License.
  */
 
-package harp;
+package harp.executable;
 
-import com.google.common.collect.ImmutableList;
-import harp.executable.Executable;
 import java.util.List;
 
 /**
  * TODO
  */
-public final class Context {
-
-  private final List<Executable> executables;
-
-  Context(List<Executable> executables) {
-    this.executables = ImmutableList.copyOf(executables);
-  }
-
-  // TODO do we even need an ordered collection? Would Set work?
-  List<Executable> getExecutables() {
-    return executables;
-  }
+public interface Executable {
 
   /**
    * TODO
    */
-  public static final ContextBuilder builder() {
-    return new ContextBuilder();
-  }
+  String getName();
+
+  /**
+   * TODO
+   */
+  List<String> getArgs();
+
 }

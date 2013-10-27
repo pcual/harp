@@ -16,12 +16,12 @@
 
 package harp;
 
-import harp.definitions.ExecutableBuilder;
+import harp.executable.ExecutableBuilder;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import groovy.lang.Closure;
 import groovy.lang.Script;
-import harp.definitions.Executable;
+import harp.executable.Executable;
 import java.util.List;
 
 /**

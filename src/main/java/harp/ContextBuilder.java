@@ -17,7 +17,7 @@
 package harp;
 
 import com.google.common.base.Preconditions;
-import harp.definitions.Executable;
+import harp.executable.Executable;
 import java.util.ArrayList;
 import java.util.List;
 

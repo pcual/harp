@@ -14,23 +14,31 @@
  * limitations under the License.
  */
 
-package harp.definitions;
+package harp.bubble;
 
-import java.util.List;
+import java.io.File;
 
 /**
- * TODO
+ * An {@link ExecutionBubble} in a local temporary directory.
  */
-public interface Executable {
+final class LocalExecutionBubble implements ExecutionBubble {
 
-  /**
-   * TODO
-   */
-  String getName();
+  private final File tempDir;
 
-  /**
-   * TODO
-   */
-  List<String> getArgs();
+  public LocalExecutionBubble(File tempDir) {
+    this.tempDir = tempDir;
+  }
+
+  @Override
+  public File getLocation() {
+    return tempDir;
+  }
+
+  // TODO: Do this correctly the JDK7 way. See:
+  // http://stackoverflow.com/questions/779519/delete-files-recursively-in-java/8685959#8685959
+  @Override
+  public void cleanUp() {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
 
 }

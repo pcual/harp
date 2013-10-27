@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package harp.definitions;
+package harp.executable;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import harp.definitions.Executable;
 import java.util.List;
 
 /**
@@ -29,14 +28,12 @@ public class ExecutableBuilder {
   private List<String> args = null;
 
   public void name(String name) {
-    System.out.println("name");
     Preconditions.checkState(this.name == null);
     Preconditions.checkNotNull(name);
     this.name = name;
   }
 
   public void args(String... args) {
-    System.out.println("args");
     Preconditions.checkState(this.args == null);
     Preconditions.checkNotNull(args);
     Preconditions.checkArgument(args.length > 0);

@@ -14,32 +14,16 @@
  * limitations under the License.
  */
 
-package harp;
-
-import com.google.common.collect.ImmutableList;
-import harp.executable.Executable;
-import java.util.List;
+package harp.bubble;
 
 /**
- * TODO
+ * A provider of new {@link ExecutionBubble}s.
  */
-public final class Context {
-
-  private final List<Executable> executables;
-
-  Context(List<Executable> executables) {
-    this.executables = ImmutableList.copyOf(executables);
-  }
-
-  // TODO do we even need an ordered collection? Would Set work?
-  List<Executable> getExecutables() {
-    return executables;
-  }
+// TODO parametrize as ExecutionBubbleCreator<? extends ExecutionBubble>?
+public interface ExecutionBubbleCreator {
 
   /**
-   * TODO
+   * Creates a new {@link ExecutionBubble}.
    */
-  public static final ContextBuilder builder() {
-    return new ContextBuilder();
-  }
+  ExecutionBubble create();
 }
