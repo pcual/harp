@@ -17,23 +17,30 @@
 package harp.bubble;
 
 import harp.executable.Executable;
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 
 /**
  * An ExecutionBubble is an isolated environment in which a single {@link Executable} is run.
  *
  * <p>Roughly speaking, an {@code ExecutionBubble} corresponds to a temporary directory.
  */
+// TODO Things I want from execution bubbles:
+// - ability to specify a location/mount point
+// - user to run as
+// - logs and artifacts storage location
+// - environment variables and other harp-specific context variables
+// - kill all processes on completion (i.e. in cleanUp)
 public interface ExecutionBubble {
 
   /**
-   * Returns the filesystem location of this bubble, i.e. the temporary directory to which it
+   * Returns the file system location of this bubble, i.e. the temporary directory to which it
    * corresponds.
    */
-  File getLocation();
+  Path getLocation();
 
   /**
    * Clean up all resources used by this bubble.
    */
-  void cleanUp();
+  void cleanUp() throws IOException;
 }

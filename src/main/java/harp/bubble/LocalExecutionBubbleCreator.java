@@ -16,8 +16,9 @@
 
 package harp.bubble;
 
-import com.google.common.io.Files;
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * A creator of {@link LocalExecutionBubble}s.
@@ -28,8 +29,8 @@ public final class LocalExecutionBubbleCreator implements ExecutionBubbleCreator
    * Creates a {@link LocalExecutionBubble} backed by a local temporary directory.
    */
   @Override
-  public ExecutionBubble create() {
-    File tempDir = Files.createTempDir();
+  public ExecutionBubble create() throws IOException {
+    Path tempDir = Files.createTempDirectory("harp_local_");
     return new LocalExecutionBubble(tempDir);
   }
 

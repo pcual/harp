@@ -16,6 +16,8 @@
 
 package harp.bubble;
 
+import java.io.IOException;
+
 /**
  * A provider of new {@link ExecutionBubble}s.
  */
@@ -25,5 +27,5 @@ public interface ExecutionBubbleCreator {
   /**
    * Creates a new {@link ExecutionBubble}.
    */
-  ExecutionBubble create();
+  ExecutionBubble create() throws IOException;
 }

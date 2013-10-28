@@ -16,29 +16,56 @@
 
 package harp.bubble;
 
-import java.io.File;
+import com.google.common.base.Preconditions;
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.FileVisitor;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 
 /**
  * An {@link ExecutionBubble} in a local temporary directory.
  */
 final class LocalExecutionBubble implements ExecutionBubble {
 
-  private final File tempDir;
+  private final Path tempDir;
 
-  public LocalExecutionBubble(File tempDir) {
+  public LocalExecutionBubble(Path tempDir) {
+    Preconditions.checkArgument(Files.isDirectory(tempDir));
     this.tempDir = tempDir;
   }
 
   @Override
-  public File getLocation() {
+  public Path getLocation() {
     return tempDir;
   }
 
-  // TODO: Do this correctly the JDK7 way. See:
-  // http://stackoverflow.com/questions/779519/delete-files-recursively-in-java/8685959#8685959
   @Override
-  public void cleanUp() {
-    throw new UnsupportedOperationException("Not supported yet.");
+  public void cleanUp() throws IOException {
+    Files.walkFileTree(tempDir, new DeletingFileVisitor());
   }
 
+  /**
+   * A {@link FileVisitor} for walking a directory and deleting files. This is used to recursively
+   * delete the entire contents of a directory.
+   */
+  private static class DeletingFileVisitor extends SimpleFileVisitor<Path> {
+
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+      Files.delete(file);
+      return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult postVisitDirectory(Path file, IOException exc) throws IOException {
+      if (exc != null) {
+        throw exc;
+      }
+      Files.delete(file);
+      return FileVisitResult.CONTINUE;
+    }
+  }
 }
