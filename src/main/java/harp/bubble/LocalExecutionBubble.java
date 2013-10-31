@@ -17,6 +17,7 @@
 package harp.bubble;
 
 import com.google.common.base.Preconditions;
+import harp.resource.Resource;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
@@ -28,6 +29,9 @@ import java.nio.file.attribute.BasicFileAttributes;
 /**
  * An {@link ExecutionBubble} in a local temporary directory.
  */
+// TODO One day, use something like chroot to isolate the bubble in the filesystem. Maybe I'll need
+// to break off a UnixLocalExecutionBubble? Note this may require spawning a separate Harp process
+// to create a bubble, load resources in it, and execute an executable!
 final class LocalExecutionBubble implements ExecutionBubble {
 
   private final Path tempDir;
@@ -45,6 +49,12 @@ final class LocalExecutionBubble implements ExecutionBubble {
   @Override
   public void cleanUp() throws IOException {
     Files.walkFileTree(tempDir, new DeletingFileVisitor());
+  }
+
+  @Override
+  public void addResource(Resource resource) {
+    // TODO add resources to some kind of manifest -- a list?
+    throw new UnsupportedOperationException("Not supported yet.");
   }
 
   /**

@@ -16,12 +16,13 @@
 
 package harp.bubble;
 
-import harp.executable.Executable;
+import harp.resource.Resource;
 import java.io.IOException;
 import java.nio.file.Path;
 
 /**
- * An ExecutionBubble is an isolated environment in which a single {@link Executable} is run.
+ * An ExecutionBubble is an isolated environment in which a single
+ * {@link harp.executable.Executable} is run.
  *
  * <p>Roughly speaking, an {@code ExecutionBubble} corresponds to a temporary directory.
  */
@@ -43,4 +44,13 @@ public interface ExecutionBubble {
    * Clean up all resources used by this bubble.
    */
   void cleanUp() throws IOException;
+
+  /**
+   * Add a {@link harp.resource.Resource} to this bubble. Any resources must be added
+   * <em>before</em> an {@code Executable} is run in this bubble, otherwise an
+   * {@link IllegalStateException} is thrown.
+   *
+   * @throw IllegalStateException if an {@code Executable} has already been run in this bubble
+   */
+  void addResource(Resource resource);
 }
