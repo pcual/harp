@@ -50,7 +50,7 @@ public interface ExecutionBubble {
    * <em>before</em> an {@code Executable} is run in this bubble, otherwise an
    * {@link IllegalStateException} is thrown.
    *
-   * @throw IllegalStateException if an {@code Executable} has already been run in this bubble
+   * @throws IllegalStateException if an {@code Executable} has already been run in this bubble
    */
   void addResource(Resource resource);
 }
