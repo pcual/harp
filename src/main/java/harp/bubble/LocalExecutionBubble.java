@@ -25,6 +25,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An {@link ExecutionBubble} in a local temporary directory.
@@ -32,9 +34,13 @@ import java.nio.file.attribute.BasicFileAttributes;
 // TODO One day, use something like chroot to isolate the bubble in the filesystem. Maybe I'll need
 // to break off a UnixLocalExecutionBubble? Note this may require spawning a separate Harp process
 // to create a bubble, load resources in it, and execute an executable!
+// NOTE: Consider using mount --bind to include outside resources, as described in:
+// http://unix.stackexchange.com/questions/55710/how-can-i-access-a-directory-outside-a-chroot-from-within-it
 final class LocalExecutionBubble implements ExecutionBubble {
 
   private final Path tempDir;
+
+  private final List<Resource> resources = new ArrayList<>();
 
   public LocalExecutionBubble(Path tempDir) {
     Preconditions.checkArgument(Files.isDirectory(tempDir));
@@ -53,8 +59,13 @@ final class LocalExecutionBubble implements ExecutionBubble {
 
   @Override
   public void addResource(Resource resource) {
-    // TODO add resources to some kind of manifest -- a list?
-    throw new UnsupportedOperationException("Not supported yet.");
+    resources.add(resource);
+    // TODO Don't initialize here. Instead, do it just before execution.
+    try {
+      resource.initialize(tempDir);
+    } catch (IOException ioEx) {
+      throw new RuntimeException(ioEx);
+    }
   }
 
   /**

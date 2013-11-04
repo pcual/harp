@@ -33,4 +33,5 @@ public interface Executable {
    */
   List<String> getArgs();
 
+  // TODO add getResources() and stub out inclusion of resources this Executable is dependent on.
 }

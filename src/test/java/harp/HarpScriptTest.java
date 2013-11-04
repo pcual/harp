@@ -27,7 +27,7 @@ import junit.framework.TestCase;
  */
 public class HarpScriptTest extends TestCase {
 
-  public void testAddExecutableWithClosure() {
+  public void testDeclareExecutableWithClosure() {
     String script = Joiner.on("\n").join(
         "executable {",
         "  name 'myExec'",
@@ -42,7 +42,7 @@ public class HarpScriptTest extends TestCase {
     assertEquals(ImmutableList.of("arg1", "arg2", "arg3"), executables.get(0).getArgs());
   }
 
-  public void testAddExecutableWithMap() {
+  public void testDeclareExecutableWithMap() {
     String script = Joiner.on("\n").join(
         "myExec = [",
         "  getName: { 'myExec' },",
@@ -59,7 +59,7 @@ public class HarpScriptTest extends TestCase {
     assertEquals(ImmutableList.of("arg1", "arg2", "arg3"), executables.get(0).getArgs());
   }
 
-  public void testAddExecutableWithClass() {
+  public void testDeclareExecutableWithClass() {
     String script = Joiner.on("\n").join(
         "public class MyExec implements harp.executable.Executable {",
         "  String name = 'myExec'",
@@ -74,5 +74,9 @@ public class HarpScriptTest extends TestCase {
     assertEquals(1, executables.size());
     assertEquals("myExec", executables.get(0).getName());
     assertEquals(ImmutableList.of("arg1", "arg2", "arg3"), executables.get(0).getArgs());
+  }
+
+  public void testDeclareResource() {
+    // TODO
   }
 }

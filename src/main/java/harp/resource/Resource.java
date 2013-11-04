@@ -33,6 +33,15 @@ import java.nio.file.Path;
  * <li>A background service such as a message queue
  * </ul>
  */
+/*
+ * TODO: Tests for resource declaration API:
+ * resource new GitRepositoryResource("http://git.repo.url") (plus a way to include local changes)
+ *
+ * TODO: Find a simpler/sparer API so we can do something like:
+ * resource gitRepository {
+ *   url "http://git.repo.url"
+ * }
+ */
 public interface Resource {
 
   /**
@@ -40,8 +49,9 @@ public interface Resource {
    * regardless of the location given, must throw an {@link IllegalStateException}.
    *
    * @throws IllegalStateException if this {@code Resource} has already been initialized
+   * @throws IOException thrown by the initialization code
    */
-  void initialize(Path bubbleLocation);
+  void initialize(Path bubbleLocation) throws IOException;
 
   /**
    * Clean up this {@code Resource}, called when execution is complete and the
