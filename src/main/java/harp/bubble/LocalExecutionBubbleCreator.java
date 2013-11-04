@@ -25,10 +25,11 @@ import java.nio.file.Path;
  */
 public final class LocalExecutionBubbleCreator implements ExecutionBubbleCreator {
 
+  // TODO use a static factory method and hide the default constructor?
+
   /**
    * Creates a {@link LocalExecutionBubble} backed by a local temporary directory.
    */
-  // TODO use a static factory method and hide this constructor?
   @Override
   public ExecutionBubble create() throws IOException {
     Path tempDir = Files.createTempDirectory("harp_local_");
