@@ -1,2 +1,4 @@
 - Write a resource for git repos, GitRepositoryResource
   - Write tests, inc. a check for whether git is installed (skip if it isn't)
+
+- Look into lxc or cgroups for real linux isolation along with (or instead of) chroot
