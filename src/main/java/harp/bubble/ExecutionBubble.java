@@ -16,6 +16,7 @@
 
 package harp.bubble;
 
+import harp.executable.Executable;
 import harp.resource.Resource;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -53,4 +54,11 @@ public interface ExecutionBubble {
    * @throws IllegalStateException if an {@code Executable} has already been run in this bubble
    */
   void addResource(Resource resource);
+
+  /**
+   * TODO
+   * TODO write preconditions/assumptions: only called once, after cleanUp, anything else?
+   */
+  // TODO return an ExecutionResult object/interface?
+  void execute(Executable executable);
 }

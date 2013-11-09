@@ -17,6 +17,7 @@
 package harp.bubble;
 
 import com.google.common.base.Preconditions;
+import harp.executable.Executable;
 import harp.resource.Resource;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -63,6 +64,21 @@ final class LocalExecutionBubble implements ExecutionBubble {
     // TODO Don't initialize here. Instead, do it just before execution.
     try {
       resource.initialize(tempDir);
+    } catch (IOException ioEx) {
+      throw new RuntimeException(ioEx);
+    }
+  }
+
+  @Override
+  public void execute(Executable executable) {
+    ProcessBuilder processBuilder = new ProcessBuilder(executable.getArgs());
+    // For now, for testing, pipe the process's stdout to Harp's stdout.
+    processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+    processBuilder.redirectError(ProcessBuilder.Redirect.INHERIT);
+    processBuilder.directory(tempDir.toFile());
+    // TODO figure out exception-handling
+    try {
+      processBuilder.start();
     } catch (IOException ioEx) {
       throw new RuntimeException(ioEx);
     }

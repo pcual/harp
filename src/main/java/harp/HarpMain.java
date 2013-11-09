@@ -16,6 +16,9 @@
 
 package harp;
 
+import harp.bubble.ExecutionBubble;
+import harp.bubble.LocalExecutionBubbleCreator;
+import harp.executable.Executable;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
@@ -35,14 +38,6 @@ public final class HarpMain {
       System.exit(1);
     }
 
-    String executableName = args[0];
-    String harpScriptPath = args[1];
-
-    String harpScriptText = new Scanner(Paths.get(harpScriptPath)).useDelimiter("\\A").next();
-
-    Context context = GroovyRunner.parseHarpScript(harpScriptText);
-
-    System.out.println("Got " + context.getExecutables().size() + " Executables.");
     // For now, look for the given executable and all its resources within a single file.
     //
     // TODO Figure out how to search for resources (at least) across directories, possibly
@@ -50,6 +45,33 @@ public final class HarpMain {
     //
     // TODO Don't take the harp config file as a parameter! Enforce some convention like looking
     // for files named 'HARP' or 'harp.conf'.
+
+    String executableName = args[0];
+    String harpScriptPath = args[1];
+
+    String harpScriptText = new Scanner(Paths.get(harpScriptPath)).useDelimiter("\\A").next();
+
+    Context context = GroovyRunner.parseHarpScript(harpScriptText);
+
+    Executable executableToRun = null;
+    for (Executable exec : context.getExecutables()) {
+      if (exec.getName().equals(executableName)) {
+        executableToRun = exec;
+        break;
+      }
+    }
+
+    if (executableToRun == null) {
+      System.err.println("Executable '" + executableName + "' not found!");
+      System.exit(1);
+    }
+
+    // TODO!! Add a Resource to this executable.
+
+    ExecutionBubble bubble = new LocalExecutionBubbleCreator().create();
+    bubble.execute(executableToRun);
+    bubble.cleanUp();
+    System.out.println("Done executing " + executableToRun.getName());
   }
 
 }
