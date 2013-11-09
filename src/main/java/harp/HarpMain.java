@@ -16,13 +16,40 @@
 
 package harp;
 
+import java.nio.file.Paths;
+import java.util.Scanner;
+
 /**
  * TODO
  */
 public final class HarpMain {
 
-  public static void main(String[] args) {
-    System.out.println("Hello Harp!");
+  public static void main(String[] args) throws Exception {
+    if (args.length != 2) {
+      System.err.println("Harp usage:");
+      System.err.println("java -jar <path to harp jar> EXECUTABLE CONFIG_FILE");
+      System.err.println();
+      System.err.println("Parameters:");
+      System.err.println("EXECUTABLE   name of the Harp executable to execute");
+      System.err.println("CONFIG_FILE  path to a Harp config file to parse");
+      System.exit(1);
+    }
+
+    String executableName = args[0];
+    String harpScriptPath = args[1];
+
+    String harpScriptText = new Scanner(Paths.get(harpScriptPath)).useDelimiter("\\A").next();
+
+    Context context = GroovyRunner.parseHarpScript(harpScriptText);
+
+    System.out.println("Got " + context.getExecutables().size() + " Executables.");
+    // For now, look for the given executable and all its resources within a single file.
+    //
+    // TODO Figure out how to search for resources (at least) across directories, possibly
+    // bounded by the presence of some root harp config file.
+    //
+    // TODO Don't take the harp config file as a parameter! Enforce some convention like looking
+    // for files named 'HARP' or 'harp.conf'.
   }
 
 }

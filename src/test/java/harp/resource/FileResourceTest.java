@@ -47,6 +47,7 @@ public class FileResourceTest extends TestCase {
     bubble.cleanUp();
     assertFalse(Files.exists(finalDest));
     Files.delete(src);
+    assertFalse(Files.exists(src));
   }
 
   // TODO Find some way to test adding a file under the current directory, using FileResource.of().

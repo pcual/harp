@@ -16,4 +16,5 @@ dependencies {
 task(runHarpMain, type: JavaExec) {
   main = 'harp.HarpMain'
   classpath = sourceSets.main.runtimeClasspath
+  args = [ "Yash", "test.harp" ]
 }

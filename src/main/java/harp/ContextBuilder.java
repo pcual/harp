@@ -29,7 +29,7 @@ public final class ContextBuilder {
   private final List<Executable> executables;
 
   ContextBuilder() {
-    executables = new ArrayList<Executable>();
+    executables = new ArrayList<>();
   }
 
   public void addExecutable(Executable executable) {
