@@ -27,6 +27,7 @@ import java.util.Scanner;
  */
 public final class HarpMain {
 
+  // TODO Write test(s) for end-to-end execution!
   public static void main(String[] args) throws Exception {
     if (args.length != 2) {
       System.err.println("Harp usage:");
