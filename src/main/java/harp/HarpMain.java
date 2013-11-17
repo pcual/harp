@@ -19,7 +19,10 @@ package harp;
 import harp.bubble.ExecutionBubble;
 import harp.bubble.LocalExecutionBubbleCreator;
 import harp.executable.Executable;
+import harp.resource.Resource;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -70,6 +73,17 @@ public final class HarpMain {
     // TODO!! Add a Resource to this executable.
 
     ExecutionBubble bubble = new LocalExecutionBubbleCreator().create();
+
+    List<Resource> resourcesToAdd = new ArrayList<>();
+    for (Resource resource : context.getResources()) {
+      if (executableToRun.getResources().contains(resource.getName())) {
+        resourcesToAdd.add(resource);
+      }
+    }
+    for (Resource resourceToAdd : resourcesToAdd) {
+      bubble.addResource(resourceToAdd);
+    }
+
     bubble.execute(executableToRun);
     bubble.cleanUp();
     System.out.println("Done executing " + executableToRun.getName());

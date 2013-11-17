@@ -45,6 +45,11 @@ import java.nio.file.Path;
 public interface Resource {
 
   /**
+   * TODO
+   */
+  String getName();
+
+  /**
    * Initialize this {@code Resource} at the given location. Subsequent calls to this method,
    * regardless of the location given, must throw an {@link IllegalStateException}.
    *

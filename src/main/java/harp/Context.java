@@ -18,6 +18,7 @@ package harp;
 
 import com.google.common.collect.ImmutableList;
 import harp.executable.Executable;
+import harp.resource.Resource;
 import java.util.List;
 
 /**
@@ -26,14 +27,26 @@ import java.util.List;
 public final class Context {
 
   private final List<Executable> executables;
+  private final List<Resource> resources;
 
-  Context(List<Executable> executables) {
+  Context(List<Executable> executables, List<Resource> resources) {
     this.executables = ImmutableList.copyOf(executables);
+    this.resources = ImmutableList.copyOf(resources);
   }
 
+  /**
+   * TODO
+   */
   // TODO do we even need an ordered collection? Would Set work?
   List<Executable> getExecutables() {
     return executables;
+  }
+
+  /**
+   * TODO
+   */
+  List<Resource> getResources() {
+    return resources;
   }
 
   /**

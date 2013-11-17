@@ -36,7 +36,7 @@ public class FileResourceTest extends TestCase {
     Path tempDirPath = src.getParent();
     // The relative (to tempDirPath) path of the temp file we just created
     Path relativeDest = tempDirPath.relativize(src);
-    FileResource fileResource = FileResource.atPath(src, relativeDest);
+    FileResource fileResource = FileResource.atPath(src, relativeDest, "testFile");
     LocalExecutionBubbleCreator creator = new LocalExecutionBubbleCreator();
     ExecutionBubble bubble = creator.create();
     bubble.addResource(fileResource);

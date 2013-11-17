@@ -19,6 +19,7 @@ package harp;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import harp.executable.Executable;
+import harp.resource.Resource;
 import java.util.List;
 import junit.framework.TestCase;
 
@@ -32,6 +33,7 @@ public class HarpScriptTest extends TestCase {
         "executable {",
         "  name 'myExec'",
         "  args 'arg1', 'arg2', 'arg3'",
+        "  resources 'res1', 'res2', 'res3'",
         "}"
         );
     Context result = GroovyRunner.parseHarpScript(script);
@@ -40,13 +42,15 @@ public class HarpScriptTest extends TestCase {
     assertEquals(1, executables.size());
     assertEquals("myExec", executables.get(0).getName());
     assertEquals(ImmutableList.of("arg1", "arg2", "arg3"), executables.get(0).getArgs());
+    assertEquals(ImmutableList.of("res1", "res2", "res3"), executables.get(0).getResources());
   }
 
   public void testDeclareExecutableWithMap() {
     String script = Joiner.on("\n").join(
         "myExec = [",
         "  getName: { 'myExec' },",
-        "  getArgs: { [ 'arg1', 'arg2', 'arg3' ] }",
+        "  getArgs: { [ 'arg1', 'arg2', 'arg3' ] },",
+        "  getResources: { [ 'res1', 'res2', 'res3' ] }",
         "] as harp.executable.Executable",
         "executable myExec"
         );
@@ -57,6 +61,7 @@ public class HarpScriptTest extends TestCase {
     assertEquals(1, executables.size());
     assertEquals("myExec", executables.get(0).getName());
     assertEquals(ImmutableList.of("arg1", "arg2", "arg3"), executables.get(0).getArgs());
+    assertEquals(ImmutableList.of("res1", "res2", "res3"), executables.get(0).getResources());
   }
 
   public void testDeclareExecutableWithClass() {
@@ -64,6 +69,7 @@ public class HarpScriptTest extends TestCase {
         "public class MyExec implements harp.executable.Executable {",
         "  String name = 'myExec'",
         "  List<String> args = [ 'arg1', 'arg2', 'arg3' ]",
+        "  List<String> resources = [ 'res1', 'res2', 'res3' ]",
         "}",
         "executable new MyExec()"
         );
@@ -74,9 +80,24 @@ public class HarpScriptTest extends TestCase {
     assertEquals(1, executables.size());
     assertEquals("myExec", executables.get(0).getName());
     assertEquals(ImmutableList.of("arg1", "arg2", "arg3"), executables.get(0).getArgs());
+    assertEquals(ImmutableList.of("res1", "res2", "res3"), executables.get(0).getResources());
   }
 
-  public void testDeclareResource() {
-    // TODO
+  // TODO Find a sleeker resource declaration syntax and test it.
+  public void testDeclareResourceWithClass() {
+    String script = Joiner.on("\n").join(
+        "public class MyResource implements harp.resource.Resource {",
+        "  String name = 'myResource'",
+        "  void initialize(java.nio.file.Path bubbleLocation) {}",
+        "  void cleanUp() {}",
+        "}",
+        "resource new MyResource()"
+        );
+
+    Context result = GroovyRunner.parseHarpScript(script);
+
+    List<Resource> resources = result.getResources();
+    assertEquals(1, resources.size());
+    assertEquals("myResource", resources.get(0).getName());
   }
 }

@@ -17,6 +17,7 @@
 package harp.resource;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,19 +30,27 @@ import java.nio.file.Path;
 // shipped off to a bubble on a remote machine.
 public final class FileResource implements Resource {
 
+  private final String name;
   private final Path src;
   private final Path dest;
 
   private boolean initialized = false;
   private Path bubbleLocation;
 
-  private FileResource(Path src, Path dest) {
+  private FileResource(Path src, Path dest, String name) {
+    Preconditions.checkArgument(!Strings.isNullOrEmpty(name));
     Preconditions.checkArgument(
         !dest.isAbsolute(),
         "You can't add a FileResource at an absolute path. The path you give must be relative "
         + "so that the file can be included under the root directory of an execution bubble.");
+    this.name = name;
     this.src = src;
     this.dest = dest;
+  }
+
+  @Override
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -61,14 +70,14 @@ public final class FileResource implements Resource {
   /**
    * TODO
    */
-  public static final FileResource of(Path src) {
-    return new FileResource(src, src);
+  public static final FileResource of(Path src, String name) {
+    return new FileResource(src, src, name);
   }
 
   /**
    * TODO
    */
-  public static final FileResource atPath(Path src, Path dest) {
-    return new FileResource(src, dest);
+  public static final FileResource atPath(Path src, Path dest, String name) {
+    return new FileResource(src, dest, name);
   }
 }

@@ -24,8 +24,10 @@ import java.util.List;
  * TODO
  */
 public class ExecutableBuilder {
+
   private String name = null;
   private List<String> args = null;
+  private List<String> resources = null;
 
   public void name(String name) {
     Preconditions.checkState(this.name == null);
@@ -40,20 +42,51 @@ public class ExecutableBuilder {
     this.args = ImmutableList.copyOf(args);
   }
 
+  public void resources(String... resources) {
+    Preconditions.checkState(this.resources == null);
+    Preconditions.checkNotNull(resources);
+    Preconditions.checkArgument(resources.length > 0);
+    this.resources = ImmutableList.copyOf(resources);
+  }
+
   public Executable build() {
     Preconditions.checkNotNull(name);
     Preconditions.checkNotNull(args);
-    return new Executable() {
-      @Override
-      public String getName() {
-        return name;
-      }
-
-      @Override
-      public List<String> getArgs() {
-        return args;
-      }
-    };
+    Preconditions.checkNotNull(resources);
+    return new SimpleExecutable(name, args, resources);
   }
 
+  /**
+   * TODO
+   */
+  private static class SimpleExecutable implements Executable {
+
+    private final String name;
+    private final List<String> args;
+    private final List<String> resources;
+
+    private SimpleExecutable(String name, List<String> args, List<String> resources) {
+      Preconditions.checkNotNull(name);
+      Preconditions.checkNotNull(args);
+      Preconditions.checkNotNull(resources);
+      this.name = name;
+      this.args = ImmutableList.copyOf(args);
+      this.resources = ImmutableList.copyOf(resources);
+    }
+
+    @Override
+    public String getName() {
+      return name;
+    }
+
+    @Override
+    public List<String> getArgs() {
+      return args;
+    }
+
+    @Override
+    public List<String> getResources() {
+      return resources;
+    }
+  }
 }

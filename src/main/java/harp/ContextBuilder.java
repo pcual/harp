@@ -18,21 +18,24 @@ package harp;
 
 import com.google.common.base.Preconditions;
 import harp.executable.Executable;
+import harp.resource.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * TODO
  */
-public final class ContextBuilder {
+final class ContextBuilder {
 
   private final List<Executable> executables;
+  private final List<Resource> resources;
 
   ContextBuilder() {
     executables = new ArrayList<>();
+    resources = new ArrayList<>();
   }
 
-  public void addExecutable(Executable executable) {
+  void addExecutable(Executable executable) {
     // TODO this doesn't make any sense yet since we don't know what the executable's equals() does.
     // Figure out whether duplication checks are necessary, and if so, how they should work.
     Preconditions.checkArgument(
@@ -41,7 +44,15 @@ public final class ContextBuilder {
     executables.add(executable);
   }
 
-  public Context build() {
-    return new Context(executables);
+  void addResource(Resource resource) {
+    // TODO figure out what equality means for resources. Maybe the same name?
+    Preconditions.checkArgument(
+        !executables.contains(resource),
+        "This executable has already been declared!");
+    resources.add(resource);
+  }
+
+  Context build() {
+    return new Context(executables, resources);
   }
 }
