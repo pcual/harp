@@ -1,0 +1,4 @@
+executable {
+    name "printDate"
+    args "date"
+}

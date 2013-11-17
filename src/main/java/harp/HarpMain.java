@@ -45,7 +45,7 @@ public final class HarpMain {
     // bounded by the presence of some root harp config file.
     //
     // TODO Don't take the harp config file as a parameter! Enforce some convention like looking
-    // for files named 'HARP' or 'harp.conf'.
+    // for files named 'HARP' or 'harp.conf' or 'run.harp'.
 
     String executableName = args[0];
     String harpScriptPath = args[1];

@@ -12,9 +12,14 @@ dependencies {
   testCompile 'junit:junit:4.11'
 }
 
-// This task is for testing purposes. It runs HarpMain.main().
-task(runHarpMain, type: JavaExec) {
+// This task runs a single integration test, i.e. it runs Harp from the command line on a test
+// harp project.
+//
+// TODO: Add some verification that gradle did the expected thing.
+//
+// TODO: Add an integration test gradle task that runs all such tasks/tests.
+task(integrationTestSimple, type: JavaExec) {
   main = 'harp.HarpMain'
   classpath = sourceSets.main.runtimeClasspath
-  args = [ "Yash", "test.harp" ]
+  args = [ "printDate", "src/test/integration/simple/run.harp" ]
 }
