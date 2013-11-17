@@ -1,0 +1,10 @@
+import harp.resource.FileResource
+import java.nio.file.Paths
+
+resource FileResource.of(Paths.get("src/test/integration/simple_with_resource/resource_file.txt"), "simple_text_resource")
+
+executable {
+    name "catFile"
+    args "cat", "src/test/integration/simple_with_resource/resource_file.txt"
+    resources "simple_text_resource"
+}

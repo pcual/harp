@@ -61,16 +61,18 @@ final class LocalExecutionBubble implements ExecutionBubble {
   @Override
   public void addResource(Resource resource) {
     resources.add(resource);
-    // TODO Don't initialize here. Instead, do it just before execution.
-    try {
-      resource.initialize(tempDir);
-    } catch (IOException ioEx) {
-      throw new RuntimeException(ioEx);
-    }
   }
 
   @Override
   public void execute(Executable executable) {
+    try {
+      for (Resource resource : resources) {
+        resource.initialize(tempDir);
+      }
+    } catch (IOException ioEx) {
+      throw new RuntimeException(ioEx);
+    }
+
     ProcessBuilder processBuilder = new ProcessBuilder(executable.getArgs());
     // For now, for testing, pipe the process's stdout to Harp's stdout.
     processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);

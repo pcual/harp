@@ -23,3 +23,9 @@ task(integrationTestSimple, type: JavaExec) {
   classpath = sourceSets.main.runtimeClasspath
   args = [ "printDate", "src/test/integration/simple/run.harp" ]
 }
+
+task(integrationTestSimpleResource, type: JavaExec) {
+  main = 'harp.HarpMain'
+  classpath = sourceSets.main.runtimeClasspath
+  args = [ "catFile", "src/test/integration/simple_with_resource/run.harp" ]
+}

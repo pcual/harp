@@ -56,7 +56,9 @@ public final class FileResource implements Resource {
   @Override
   public void initialize(Path bubbleLocation) throws IOException {
     Preconditions.checkState(!initialized);
-    Files.copy(src, bubbleLocation.resolve(dest));
+    Path destPath = bubbleLocation.resolve(dest);
+    Files.createDirectories(destPath.getParent());
+    Files.copy(src, destPath);
     initialized = true;
     this.bubbleLocation = bubbleLocation;
   }
