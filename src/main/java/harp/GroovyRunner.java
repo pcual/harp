@@ -16,7 +16,6 @@
 
 package harp;
 
-import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import org.codehaus.groovy.control.CompilerConfiguration;
 
@@ -31,19 +30,14 @@ public class GroovyRunner {
   // TODO maybe this needs to return the builder instead of a finalized context? OR we need a single
   // method that parses all the scripts needed in one pass, then returns a finalized context.
   public static Context parseHarpScript(String scriptText) {
-    ContextBuilder builder = Context.builder();
-
-    Binding binding = new Binding();
-    binding.setVariable("context", builder);
-
     CompilerConfiguration config = new CompilerConfiguration();
     config.setScriptBaseClass(HarpScript.class.getCanonicalName());
 
+    HarpBinding binding = new HarpBinding();
     GroovyShell shell = new GroovyShell(binding, config);
-    shell.setProperty("contextToBuild", builder);
 
     shell.evaluate(scriptText);
 
-    return builder.build();
+    return binding.getContextBuilder().build();
   }
 }

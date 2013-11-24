@@ -76,6 +76,8 @@ public final class HarpMain {
 
     List<Resource> resourcesToAdd = new ArrayList<>();
     for (Resource resource : context.getResources()) {
+      // TODO check that the resource doesn't have a null name, since it can be an arbitrary
+      // implementation of the Resource interface?
       if (executableToRun.getResources().contains(resource.getName())) {
         resourcesToAdd.add(resource);
       }

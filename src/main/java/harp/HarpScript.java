@@ -36,14 +36,16 @@ public abstract class HarpScript extends Script {
     closure.setDelegate(builder);
     closure.call();
     Executable executable = builder.build();
-    ((ContextBuilder) getProperty("contextToBuild")).addExecutable(executable);
+    getMyContextBuilder().addExecutable(executable);
   }
 
   /**
    * TODO
    */
+  // TODO remove this method and only use the closure method? Why do we need "clever", open-ended
+  // Executable implementations anyway?
   public void executable(Executable executable) {
-    ((ContextBuilder) getProperty("contextToBuild")).addExecutable(executable);
+    getMyContextBuilder().addExecutable(executable);
   }
 
   /**
@@ -52,6 +54,10 @@ public abstract class HarpScript extends Script {
   // TODO Settle on a flexible, simple syntax for adding resources, in the spirit of
   // executable { ... }. Something like 'resource file { path "my/file" }' would be nice.
   public void resource(Resource resource) {
-    ((ContextBuilder) getProperty("contextToBuild")).addResource(resource);
+    getMyContextBuilder().addResource(resource);
+  }
+
+  private ContextBuilder getMyContextBuilder() {
+    return ((HarpBinding) getBinding()).getContextBuilder();
   }
 }

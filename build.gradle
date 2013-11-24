@@ -16,8 +16,6 @@ dependencies {
 // harp project.
 //
 // TODO: Add some verification that gradle did the expected thing.
-//
-// TODO: Add an integration test gradle task that runs all such tasks/tests.
 task(integrationTestSimple, type: JavaExec) {
   main = 'harp.HarpMain'
   classpath = sourceSets.main.runtimeClasspath
