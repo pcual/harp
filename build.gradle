@@ -29,3 +29,10 @@ task(integrationTestSimpleResource, type: JavaExec) {
   classpath = sourceSets.main.runtimeClasspath
   args = [ "catFile", "src/test/integration/simple_with_resource/run.harp" ]
 }
+
+task allTests {
+  dependsOn test
+  // TODO figure out how to depend on all tasks named "integrationTest*"
+  dependsOn integrationTestSimple
+  dependsOn integrationTestSimpleResource
+}

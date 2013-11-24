@@ -52,7 +52,9 @@ public class ExecutableBuilder {
   public Executable build() {
     Preconditions.checkNotNull(name);
     Preconditions.checkNotNull(args);
-    Preconditions.checkNotNull(resources);
+    if (resources == null) {
+      resources = ImmutableList.of();
+    }
     return new SimpleExecutable(name, args, resources);
   }
 
