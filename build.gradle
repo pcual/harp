@@ -34,3 +34,10 @@ task allTests {
   dependsOn integrationTestSimple
   dependsOn integrationTestSimpleResource
 }
+
+// For fiddling purposes, run Harp.
+task(runHarp, type: JavaExec) {
+  main = 'harp.HarpMain'
+  classpath = sourceSets.main.runtimeClasspath
+  args = [ "haveFun", "fun.harp" ]
+}
