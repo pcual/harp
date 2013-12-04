@@ -21,6 +21,6 @@ import groovy.lang.GroovyObjectSupport;
 /**
  * TODO
  */
-public final class ResourceManager extends GroovyObjectSupport {
+public final class ResourceRegistrar extends GroovyObjectSupport {
 
 }

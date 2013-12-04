@@ -15,7 +15,7 @@ dependencies {
 // This task runs a single integration test, i.e. it runs Harp from the command line on a test
 // harp project.
 //
-// TODO: Add some verification that gradle did the expected thing.
+// TODO: Add some verification that harp did the expected thing in execution.
 task(integrationTestSimple, type: JavaExec) {
   main = 'harp.HarpMain'
   classpath = sourceSets.main.runtimeClasspath
