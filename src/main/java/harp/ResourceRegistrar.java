@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package harp.resource;
+package harp;
 
 import com.google.common.base.Preconditions;
 import groovy.lang.Closure;
 import groovy.lang.GroovyObjectSupport;
+import harp.resource.Resource;
+import harp.resource.ResourceFactory;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +31,11 @@ import java.util.Map;
 public final class ResourceRegistrar extends GroovyObjectSupport {
 
   private final Map<String, ResourceFactory> resourceFactories = new HashMap<>();
+  private final ContextBuilder contextToBuild;
+
+  ResourceRegistrar(ContextBuilder contextToBuild) {
+    this.contextToBuild = contextToBuild;
+  }
 
   @Override
   public Object invokeMethod(String name, Object args) {
@@ -42,7 +49,14 @@ public final class ResourceRegistrar extends GroovyObjectSupport {
           "Resources must be declared with one argument: a closure.");
     }
 
-    // TODO delegate to the right ResourceFactory and add it to this script's ContextBuilder.
+    if (!resourceFactories.containsKey(name)) {
+      throw new IllegalArgumentException(
+          "No ResourceFactory with the name '" + name + "' was registered! See the javadoc for "
+          + "ResourceRegistrar#registerResourceFactory");
+    }
+    Resource newResource = resourceFactories.get(name).create((Closure) arrayArgs[0]);
+    contextToBuild.addResource(newResource);
+
     return null;
   }
 
@@ -50,6 +64,8 @@ public final class ResourceRegistrar extends GroovyObjectSupport {
    * TODO
    */
   public final void registerResourceFactory(String name, ResourceFactory factory) {
+    Preconditions.checkNotNull(name);
+    Preconditions.checkNotNull(factory);
     Preconditions.checkArgument(
         !resourceFactories.containsKey(name),
         "You've already registered a resource factory named '" + name + "'!");

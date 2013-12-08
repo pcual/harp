@@ -18,7 +18,6 @@ package harp;
 
 import com.google.common.collect.ImmutableSet;
 import groovy.lang.Binding;
-import harp.resource.ResourceRegistrar;
 import java.util.Set;
 
 /**
@@ -39,7 +38,7 @@ final class HarpBinding extends Binding {
 
   HarpBinding() {
     contextToBuild = Context.builder();
-    resourceRegistrar = new ResourceRegistrar();
+    resourceRegistrar = new ResourceRegistrar(contextToBuild);
     super.setVariable("resource", resourceRegistrar);
   }
 

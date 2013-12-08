@@ -54,6 +54,7 @@ public abstract class HarpScript extends Script {
   // TODO Settle on a flexible, simple syntax for adding resources, in the spirit of
   // executable { ... }. Something like 'resource file { path "my/file" }' would be nice.
   public void resource(Resource resource) {
+    System.out.println("Adding resource directly: " + resource);
     getMyContextBuilder().addResource(resource);
   }
 
