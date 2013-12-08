@@ -42,8 +42,7 @@ public class ExecutableBuilder {
     this.args = ImmutableList.copyOf(args);
   }
 
-    // TODO!!! RENAME THIS BACK TO RESOURCE AND TEST
-  public void resources(String... resources) {
+  public void resource(String... resources) {
     Preconditions.checkState(this.resources == null);
     Preconditions.checkNotNull(resources);
     Preconditions.checkArgument(resources.length > 0);
