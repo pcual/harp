@@ -28,11 +28,21 @@ task(integrationTestSimpleResource, type: JavaExec) {
   args = [ "catFile", "src/test/integration/simple_with_resource/run.harp" ]
 }
 
+task(integrationTestCustomResource, type: JavaExec) {
+  main = 'harp.HarpMain'
+  classpath = sourceSets.main.runtimeClasspath
+  args = [ "sayHello", "src/test/integration/custom_resource/run.harp" ]
+}
+
 task allTests {
+
   dependsOn test
-  // TODO figure out how to depend on all tasks named "integrationTest*"
-  dependsOn integrationTestSimple
-  dependsOn integrationTestSimpleResource
+
+  def integrationTestTasks = tasks.matching {
+    it.name.startsWith("integrationTest")
+  }
+
+  dependsOn integrationTestTasks
 }
 
 // For fiddling purposes, run Harp.

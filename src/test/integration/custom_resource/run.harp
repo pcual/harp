@@ -1,0 +1,25 @@
+helloResourceFactory = [
+  create: { closure ->
+    def message = closure.call()
+
+    return [
+      getName: { "someHelloResource" },
+      initialize: { path ->
+        println message
+      },
+      cleanup: {}
+    ] as harp.resource.Resource
+  }
+] as harp.resource.ResourceFactory
+
+resource.registerResourceFactory("hello", helloResourceFactory)
+
+resource.hello {
+  "sup!"
+}
+
+executable {
+  name "sayHello"
+  args "echo", "Done saying hello!"
+  resources "someHelloResource"
+}
