@@ -33,7 +33,7 @@ public class HarpScriptTest extends TestCase {
         "executable {",
         "  name 'myExec'",
         "  args 'arg1', 'arg2', 'arg3'",
-        "  resource 'res1', 'res2', 'res3'",
+        "  resources 'res1', 'res2', 'res3'",
         "}"
         );
     Context result = GroovyRunner.parseHarpScript(script);
