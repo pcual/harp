@@ -22,7 +22,7 @@ import org.codehaus.groovy.control.CompilerConfiguration;
 /**
  * TODO
  */
-public class GroovyRunner {
+public final class GroovyRunner {
 
   /**
    * TODO

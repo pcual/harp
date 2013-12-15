@@ -2,3 +2,5 @@
   - Write tests, inc. a check for whether git is installed (skip if it isn't)
 
 - Look into lxc or cgroups for real linux isolation along with (or instead of) chroot
+
+- Put license files for third-party libraries (e.g. groovy, guava) in the right place(s)
