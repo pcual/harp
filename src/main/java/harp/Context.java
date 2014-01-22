@@ -22,7 +22,10 @@ import harp.resource.Resource;
 import java.util.List;
 
 /**
- * TODO
+ * A Context is a container for all the execution elements parsed from a set of Harp scripts.
+ *
+ * <p>All the execution elements (such as Executables and Resources) declared in your Harp scripts
+ * are evaluated to Java objects stored in an immutable Context.
  */
 public final class Context {
 

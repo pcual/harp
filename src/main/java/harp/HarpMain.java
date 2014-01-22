@@ -28,9 +28,10 @@ import java.util.Scanner;
 /**
  * TODO
  */
+// TODO Create a HarpJob from a given path to Harp scripts and send it to a Dispatcher via the
+// Environment specified on the command line.
 public final class HarpMain {
 
-  // TODO Write test(s) for end-to-end execution!
   public static void main(String[] args) throws Exception {
     if (args.length != 2) {
       System.err.println("Harp usage:");
