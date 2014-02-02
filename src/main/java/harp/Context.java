@@ -41,14 +41,14 @@ public final class Context {
    * TODO
    */
   // TODO do we even need an ordered collection? Would Set work?
-  List<Executable> getExecutables() {
+  public List<Executable> getExecutables() {
     return executables;
   }
 
   /**
    * TODO
    */
-  List<Resource> getResources() {
+  public List<Resource> getResources() {
     return resources;
   }
 

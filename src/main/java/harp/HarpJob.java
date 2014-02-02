@@ -16,17 +16,41 @@
 
 package harp;
 
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
+import java.util.List;
+
 /**
  * A HarpJob encapsulates an execution task, as specified from a command line.
  *
- * <p>The name(s) of the Executable(s) to run, the path to a set of Harp scripts, and where and how
- * to execute, are all encapsulated in a HarpJob.
+ * <p>The name(s) of the Executable(s) to run, a set of Harp scripts, and where and how to execute,
+ * are all encapsulated in a HarpJob.
  *
  * <p>The purpose of a HarpJob is to bundle up everything a Harp node needs to do its assigned
  * work. It does <em>not</em> parse anything in the scripts, it just holds on to their contents.
  * This is so that a HarpJob can be sent over the wire to another node as unparsed Groovy plus some
  * other simple execution specifiers in String form.
  */
-public class HarpJob {
+public final class HarpJob {
 
+  private final String harpScript;
+  private final ImmutableList<String> executablesToRun;
+
+  // TODO take a collection of scripts
+  // TODO static factory method instead of constructor?
+  HarpJob(String harpScript, List<String> executablesToRun) {
+    this.harpScript = Preconditions.checkNotNull(harpScript);
+    Preconditions.checkArgument(executablesToRun.size() > 0);
+    this.executablesToRun = ImmutableList.copyOf(executablesToRun);
+  }
+
+  public String getScript() {
+    return harpScript;
+  }
+
+  public List<String> getExecutablesToRun() {
+    return executablesToRun;
+  }
+
+  // TODO some kind of serialization method that writes everything to a JSON(?) object?
 }

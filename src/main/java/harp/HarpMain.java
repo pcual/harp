@@ -16,20 +16,17 @@
 
 package harp;
 
-import harp.bubble.ExecutionBubble;
-import harp.bubble.LocalExecutionBubbleCreator;
-import harp.executable.Executable;
-import harp.resource.Resource;
+import com.google.common.base.Charsets;
+import com.google.common.base.Joiner;
+import com.google.common.collect.ImmutableList;
+import harp.dispatch.Dispatcher;
+import harp.dispatch.LocalDispatcher;
+import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * TODO
  */
-// TODO Create a HarpJob from a given path to Harp scripts and send it to a Dispatcher via the
-// Environment specified on the command line.
 public final class HarpMain {
 
   public static void main(String[] args) throws Exception {
@@ -54,42 +51,15 @@ public final class HarpMain {
     String executableName = args[0];
     String harpScriptPath = args[1];
 
-    String harpScriptText = new Scanner(Paths.get(harpScriptPath)).useDelimiter("\\A").next();
+    String harpScriptText = Joiner.on("\n").join(
+        Files.readAllLines(Paths.get(harpScriptPath), Charsets.UTF_8));
 
-    Context context = GroovyRunner.parseHarpScript(harpScriptText);
+    HarpJob thisJob = new HarpJob(harpScriptText, ImmutableList.of(executableName));
 
-    Executable executableToRun = null;
-    for (Executable exec : context.getExecutables()) {
-      if (exec.getName().equals(executableName)) {
-        executableToRun = exec;
-        break;
-      }
-    }
+    // TODO Choose a dispatcher from the command line or some configuration means.
+    Dispatcher dispatcher = new LocalDispatcher();
+    dispatcher.dispatch(thisJob);
 
-    if (executableToRun == null) {
-      System.err.println("Executable '" + executableName + "' not found!");
-      System.exit(1);
-    }
-
-    // TODO!! Add a Resource to this executable.
-
-    ExecutionBubble bubble = new LocalExecutionBubbleCreator().create();
-
-    List<Resource> resourcesToAdd = new ArrayList<>();
-    for (Resource resource : context.getResources()) {
-      // TODO check that the resource doesn't have a null name, since it can be an arbitrary
-      // implementation of the Resource interface?
-      if (executableToRun.getResources().contains(resource.getName())) {
-        resourcesToAdd.add(resource);
-      }
-    }
-    for (Resource resourceToAdd : resourcesToAdd) {
-      bubble.addResource(resourceToAdd);
-    }
-
-    bubble.execute(executableToRun);
-    bubble.cleanUp();
-    System.out.println("Done executing " + executableToRun.getName());
+    System.out.println("Done executing " + executableName);
   }
-
 }

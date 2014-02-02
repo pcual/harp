@@ -4,3 +4,5 @@
 - Look into lxc or cgroups for real linux isolation along with (or instead of) chroot
 
 - Put license files for third-party libraries (e.g. groovy, guava) in the right place(s)
+
+- Look into projar in gradle build for building a standalone jar

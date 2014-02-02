@@ -44,6 +44,7 @@ public interface ExecutionBubble {
   /**
    * Clean up all resources used by this bubble.
    */
+  // TODO Use something better than IOException
   void cleanUp() throws IOException;
 
   /**

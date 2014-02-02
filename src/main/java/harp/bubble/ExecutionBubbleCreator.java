@@ -27,5 +27,6 @@ public interface ExecutionBubbleCreator {
   /**
    * Creates a new {@link ExecutionBubble}.
    */
+  // TODO use something better than IOException
   ExecutionBubble create() throws IOException;
 }

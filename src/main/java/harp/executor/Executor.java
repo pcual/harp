@@ -16,12 +16,17 @@
 
 package harp.executor;
 
+import harp.Context;
+import harp.executable.Executable;
+
 /**
  * An Executor manages the execution of a single Executable.
  *
  * <p>"Managing" an Executable includes creating an {@link harp.bubble.ExecutionBubble} for it,
- * kicking off and monitoring execution, and cleaning up when everything's done.
+ * kicking off and monitoring execution, and cleaning up when everything is done.
  */
 public interface Executor {
 
+  // TODO return something?
+  void execute(Executable executable, Context context);
 }
