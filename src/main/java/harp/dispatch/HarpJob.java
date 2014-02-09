@@ -1,5 +1,3 @@
-package harp.dispatch;
-
 /*
  * Copyright 2014 Yash Parghi
  *
@@ -16,7 +14,7 @@ package harp.dispatch;
  * limitations under the License.
  */
 
-
+package harp.dispatch;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;

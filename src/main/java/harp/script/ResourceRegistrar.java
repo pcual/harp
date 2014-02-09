@@ -16,7 +16,6 @@
 
 package harp.script;
 
-import harp.script.ContextBuilder;
 import com.google.common.base.Preconditions;
 import groovy.lang.Closure;
 import groovy.lang.GroovyObjectSupport;
