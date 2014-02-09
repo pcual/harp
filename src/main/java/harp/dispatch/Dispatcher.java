@@ -16,8 +16,6 @@
 
 package harp.dispatch;
 
-import harp.HarpJob;
-
 /**
  * A Dispatcher sends a {@link HarpJob} somewhere for execution.
  *

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package harp;
+package harp.script;
 
 import com.google.common.collect.ImmutableList;
 import harp.executable.Executable;

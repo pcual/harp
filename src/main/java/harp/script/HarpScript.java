@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package harp;
+package harp.script;
 
 import harp.executable.ExecutableBuilder;
 import groovy.lang.Closure;

@@ -16,7 +16,7 @@
 
 package harp.executor;
 
-import harp.Context;
+import harp.script.Context;
 import harp.bubble.ExecutionBubble;
 import harp.bubble.LocalExecutionBubbleCreator;
 import harp.executable.Executable;

@@ -16,6 +16,7 @@
 
 package harp;
 
+import harp.dispatch.HarpJob;
 import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;

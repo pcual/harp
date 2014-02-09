@@ -16,6 +16,8 @@
 
 package harp;
 
+import harp.script.Context;
+import harp.script.GroovyRunner;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import harp.executable.Executable;

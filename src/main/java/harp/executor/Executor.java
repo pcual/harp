@@ -16,7 +16,7 @@
 
 package harp.executor;
 
-import harp.Context;
+import harp.script.Context;
 import harp.executable.Executable;
 
 /**

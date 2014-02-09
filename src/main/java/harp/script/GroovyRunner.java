@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package harp;
+package harp.script;
 
 import groovy.lang.GroovyShell;
 import org.codehaus.groovy.control.CompilerConfiguration;

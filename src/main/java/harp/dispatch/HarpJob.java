@@ -1,3 +1,5 @@
+package harp.dispatch;
+
 /*
  * Copyright 2014 Yash Parghi
  *
@@ -14,7 +16,7 @@
  * limitations under the License.
  */
 
-package harp;
+
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
@@ -38,7 +40,7 @@ public final class HarpJob {
 
   // TODO take a collection of scripts
   // TODO static factory method instead of constructor?
-  HarpJob(String harpScript, List<String> executablesToRun) {
+  public HarpJob(String harpScript, List<String> executablesToRun) {
     this.harpScript = Preconditions.checkNotNull(harpScript);
     Preconditions.checkArgument(executablesToRun.size() > 0);
     this.executablesToRun = ImmutableList.copyOf(executablesToRun);

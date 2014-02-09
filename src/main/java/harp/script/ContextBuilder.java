@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package harp;
+package harp.script;
 
 import com.google.common.base.Preconditions;
 import harp.executable.Executable;

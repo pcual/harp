@@ -16,9 +16,8 @@
 
 package harp.dispatch;
 
-import harp.Context;
-import harp.GroovyRunner;
-import harp.HarpJob;
+import harp.script.Context;
+import harp.script.GroovyRunner;
 import harp.executable.Executable;
 import harp.executor.Executor;
 import harp.executor.LocalExecutor;
