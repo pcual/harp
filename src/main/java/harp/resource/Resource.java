@@ -33,15 +33,6 @@ import java.nio.file.Path;
  * <li>A background service such as a message queue
  * </ul>
  */
-/*
- * TODO: Tests for resource declaration API:
- * resource new GitRepositoryResource("http://git.repo.url") (plus a way to include local changes)
- *
- * TODO: Find a simpler/sparer API so we can do something like:
- * resource gitRepository {
- *   url "http://git.repo.url"
- * }
- */
 public interface Resource {
 
   /**
