@@ -3,3 +3,6 @@ build/
 
 # Netbeans gradle plugin
 .nb-gradle*
+
+# My horseplay script
+test.groovy
