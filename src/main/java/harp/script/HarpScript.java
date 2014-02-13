@@ -19,7 +19,9 @@ package harp.script;
 import harp.executable.ExecutableBuilder;
 import groovy.lang.Closure;
 import groovy.lang.Script;
+import harp.dispatch.Dispatcher;
 import harp.executable.Executable;
+import harp.node.NodeSpec;
 import harp.resource.Resource;
 
 /**
@@ -51,10 +53,22 @@ public abstract class HarpScript extends Script {
   /**
    * TODO
    */
-  // TODO Settle on a flexible, simple syntax for adding resources, in the spirit of
-  // executable { ... }. Something like 'resource file { path "my/file" }' would be nice.
   public void resource(Resource resource) {
     getMyContextBuilder().addResource(resource);
+  }
+
+  /**
+   * TODO
+   */
+  public void node(NodeSpec nodeSpec) {
+    getMyContextBuilder().addNodeSpec(nodeSpec);
+  }
+
+  /**
+   * TODO
+   */
+  public void dispatcher(Dispatcher dispatcher) {
+    getMyContextBuilder().addDispatcher(dispatcher);
   }
 
   private ContextBuilder getMyContextBuilder() {

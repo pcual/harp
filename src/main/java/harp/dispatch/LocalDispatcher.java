@@ -27,8 +27,10 @@ import harp.executor.LocalExecutor;
  */
 public final class LocalDispatcher implements Dispatcher {
 
-  public LocalDispatcher() {
+  private final String name;
 
+  public LocalDispatcher(String name) {
+    this.name = name;
   }
 
   @Override
@@ -53,6 +55,11 @@ public final class LocalDispatcher implements Dispatcher {
 
     Executor executor = new LocalExecutor();
     executor.execute(executableToRun, context);
+  }
+
+  @Override
+  public String getName() {
+    return name;
   }
 
 }

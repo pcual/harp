@@ -31,4 +31,7 @@ public interface NodeSpec {
    * by this spec.
    */
   NodeBridge getBridge();
+
+  // TODO: extend some common Named interface, or something for all parsed Harp objects?
+  String getName();
 }

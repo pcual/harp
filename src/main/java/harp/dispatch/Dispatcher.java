@@ -27,4 +27,7 @@ public interface Dispatcher {
 
   // TODO(yparghi): Return something?
   void dispatch(HarpJob job);
+
+  // TODO: extend some common Named interface, or something for all parsed Harp objects?
+  String getName();
 }

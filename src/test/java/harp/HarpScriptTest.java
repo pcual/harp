@@ -20,7 +20,9 @@ import harp.script.Context;
 import harp.script.GroovyRunner;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
+import harp.dispatch.Dispatcher;
 import harp.executable.Executable;
+import harp.node.NodeSpec;
 import harp.resource.Resource;
 import java.util.List;
 import junit.framework.TestCase;
@@ -101,5 +103,38 @@ public class HarpScriptTest extends TestCase {
     List<Resource> resources = result.getResources();
     assertEquals(1, resources.size());
     assertEquals("myResource", resources.get(0).getName());
+  }
+
+  public void testDeclareDispatcher() {
+    String script = Joiner.on("\n").join(
+        "public class MyDispatcher implements harp.dispatch.Dispatcher {",
+        "  String name = 'myDispatcher'",
+        "  void dispatch(harp.dispatch.HarpJob job) {}",
+        "}",
+        "dispatcher new MyDispatcher()"
+        );
+
+    Context result = GroovyRunner.parseHarpScript(script);
+
+    List<Dispatcher> dispatchers = result.getDispatchers();
+    assertEquals(1, dispatchers.size());
+    assertEquals("myDispatcher", dispatchers.get(0).getName());
+  }
+
+  public void testDeclareNodeSpec() {
+    String script = Joiner.on("\n").join(
+        "public class MyNodeSpec implements harp.node.NodeSpec {",
+        "  String name = 'myNodeSpec'",
+        "  harp.node.Node getNode() { return null }",
+        "  harp.node.NodeBridge getBridge() { return null }",
+        "}",
+        "node new MyNodeSpec()"
+        );
+
+    Context result = GroovyRunner.parseHarpScript(script);
+
+    List<NodeSpec> nodeSpecs = result.getNodeSpecs();
+    assertEquals(1, nodeSpecs.size());
+    assertEquals("myNodeSpec", nodeSpecs.get(0).getName());
   }
 }

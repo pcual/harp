@@ -92,7 +92,7 @@ public final class HarpMain {
     HarpJob thisJob = new HarpJob(harpScriptText, ImmutableList.of(executableName));
 
     // TODO Choose a dispatcher from the command line or some configuration means.
-    Dispatcher dispatcher = new LocalDispatcher();
+    Dispatcher dispatcher = new LocalDispatcher("simpleCommandLineDispatcher");
     dispatcher.dispatch(thisJob);
 
     System.out.println("Done executing " + executableName);
