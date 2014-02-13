@@ -1,22 +1,23 @@
-helloResourceFactory = [
-  create: { closure ->
-    def message = closure.call()
+class HelloResource implements harp.resource.Resource {
 
-    return [
-      getName: { "someHelloResource" },
-      initialize: { path ->
-        println message
-      },
-      cleanup: {}
-    ] as harp.resource.Resource
+  String name
+  String message
+
+  String getName() { return name }
+  void initialize(java.nio.file.Path bubbleLocation) { println message }
+  void cleanUp() {}
+
+  static of(Map m) {
+    assert m.name
+    assert m.message
+    return new HelloResource(name: m.name, message: m.message)
   }
-] as harp.resource.ResourceFactory
-
-resource.registerResourceFactory("hello", helloResourceFactory)
-
-resource.hello {
-  "sup!"
 }
+
+resource HelloResource.of(
+  name: "someHelloResource",
+  message: "Hello from a HelloResource!",
+)
 
 executable {
   name "sayHello"

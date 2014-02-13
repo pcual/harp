@@ -19,7 +19,6 @@ package harp.node;
 /**
  * A process or server that listens for a {@link harp.dispatch.HarpJob} to run on this machine.
  */
-// TODO Use a factory + registrar model (as Resource does) for declaring a node in a script?
 public interface Node {
 
   void start();
