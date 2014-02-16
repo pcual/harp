@@ -71,6 +71,15 @@ public abstract class HarpScript extends Script {
     getMyContextBuilder().addDispatcher(dispatcher);
   }
 
+  /**
+   * TODO
+   */
+  // TODO use this for something? Or bind it in HarpBinding instead of here, so that it's not
+  // a part of the public HarpScript API?
+  public void harpInclude(String includePath) {
+    // No op.
+  }
+
   private ContextBuilder getMyContextBuilder() {
     return ((HarpBinding) getBinding()).getContextBuilder();
   }
