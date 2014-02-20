@@ -16,6 +16,8 @@
 
 package harp.dispatch;
 
+import harp.script.HarpJob;
+
 /**
  * A utility class to serialize a HarpJob to XML for sending over the wire.
  */

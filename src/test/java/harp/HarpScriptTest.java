@@ -109,7 +109,7 @@ public class HarpScriptTest extends TestCase {
     String script = Joiner.on("\n").join(
         "public class MyDispatcher implements harp.dispatch.Dispatcher {",
         "  String name = 'myDispatcher'",
-        "  void dispatch(harp.dispatch.HarpJob job) {}",
+        "  void dispatch(harp.script.HarpJob job) {}",
         "}",
         "dispatcher new MyDispatcher()"
         );

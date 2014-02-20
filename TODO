@@ -10,3 +10,5 @@
 - Go through and add proper exception handling. Maybe each major interface/operation throws a single kind of exception, e.g. EvaluationException?
 
 - Figure out how root.harp fits into overall evaluation!
+
+- Do some profiling to figure out if evaluating so many groovy scripts will fill up PermGen

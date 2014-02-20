@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package harp.dispatch;
+package harp.script;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
@@ -31,8 +31,7 @@ import java.util.List;
  * This is so that a HarpJob can be sent over the wire to another node as unparsed Groovy plus some
  * other simple execution specifiers in String form.
  */
-// TODO use something other than a concatenation of all scripts? Like a Map from path/name to
-// contents?
+// TODO use a per-file map or graph instead of one big string
 public final class HarpJob {
 
   private final String harpScript;

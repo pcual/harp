@@ -16,8 +16,6 @@
 
 package harp.script;
 
-import harp.dispatch.HarpJob;
-
 /**
  * An interface for objects that assemble the Harp scripts in some context (such as the current
  * working directory or repository) into a HarpJob.

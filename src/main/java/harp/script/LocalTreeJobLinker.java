@@ -17,7 +17,6 @@
 package harp.script;
 
 import com.google.common.base.Preconditions;
-import harp.dispatch.HarpJob;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,10 +30,6 @@ import java.nio.file.Paths;
  */
 // TODO integration test parsing multiple .harp files in multiple dir levels
 // TODO figure out how root.harp fits into overall evaluation!
-//
-// TODO is there a better way to find "include ..." lines in a Groovy script besides regex search?
-//      Can we do it without evaluating the whole script as Groovy, since evaluation may have side
-//      effects (even though it shouldn't), and so that we don't need to evaluate a script twice?
 public final class LocalTreeJobLinker implements JobLinker {
 
   private static final String ROOT_FILE_NAME = "root.harp";
