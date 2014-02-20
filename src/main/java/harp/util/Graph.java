@@ -40,7 +40,7 @@ public final class Graph<T> {
   }
 
   public void addNode(T data) {
-    Node<T> newNode = new Node(data);
+    Node<T> newNode = new Node<>(data);
     nodes.add(newNode);
     keyToNode.put(data, newNode);
   }
@@ -58,9 +58,9 @@ public final class Graph<T> {
    * unmarked, temporarily marked).
    */
   public List<T> topologicallySorted() {
-    List<T> outList = new ArrayList();
-    Set<Node<T>> unmarked = new HashSet(nodes);
-    Set<Node<T>> temporarilyMarked = new HashSet();
+    List<T> outList = new ArrayList<>();
+    Set<Node<T>> unmarked = new HashSet<>(nodes);
+    Set<Node<T>> temporarilyMarked = new HashSet<>();
     while (!unmarked.isEmpty()) {
       Node<T> next = unmarked.iterator().next();
       visit(next, unmarked, temporarilyMarked, outList);

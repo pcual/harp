@@ -12,6 +12,11 @@ dependencies {
   testCompile 'junit:junit:4.11'
 }
 
+compileJava {
+  options.compilerArgs << "-Werror"
+  options.compilerArgs << "-Xlint:all"
+}
+
 // This task runs a single integration test, i.e. it runs Harp from the command line on a test
 // harp project.
 //

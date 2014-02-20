@@ -32,7 +32,7 @@ public abstract class HarpScript extends Script {
   /**
    * TODO
    */
-  public void executable(Closure closure) {
+  public void executable(Closure<?> closure) {
     closure.setResolveStrategy(Closure.DELEGATE_ONLY);
     ExecutableBuilder builder = new ExecutableBuilder();
     closure.setDelegate(builder);
