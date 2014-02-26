@@ -54,5 +54,5 @@ task allTests {
 task(runHarp, type: JavaExec) {
   main = 'harp.HarpMain'
   classpath = sourceSets.main.runtimeClasspath
-  args = [ "node", "haveFun"/*, "fun.harp"*/ ]
+  args = [ "test", "src/test/integration/local_linker_simple/sub/run.harp" ]
 }

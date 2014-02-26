@@ -1,0 +1,4 @@
+harpInclude "parent.harp"
+
+def myInstance = new A()
+myInstance.a()

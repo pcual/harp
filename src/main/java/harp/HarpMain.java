@@ -38,7 +38,8 @@ public final class HarpMain {
 
   private static final Map<String, String> OPERATIONS = ImmutableMap.of(
       "run", "Run a Harp executable",
-      "node", "Start a Harp node"
+      "node", "Start a Harp node",
+      "test", "TODO REMOVE"
   );
 
   public static void main(String[] args) throws Exception {
@@ -60,6 +61,9 @@ public final class HarpMain {
         break;
       case "node":
         node(args);
+        break;
+      case "test":
+        test(args);
         break;
     }
   }
@@ -116,5 +120,10 @@ public final class HarpMain {
       System.err.println("CONFIG_FILE  path to a Harp config file to parse");
       System.exit(1);
     }
+  }
+
+  private static void test(String[] args) throws Exception {
+    Preconditions.checkArgument(args[0].equals("test"));
+    new LocalTreeJobLinker(args[1]).link();
   }
 }

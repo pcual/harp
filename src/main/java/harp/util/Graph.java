@@ -46,8 +46,12 @@ public final class Graph<T> {
   }
 
   public void addEdge(T from, T to) {
-    Preconditions.checkArgument(keyToNode.containsKey(from));
-    Preconditions.checkArgument(keyToNode.containsKey(to));
+    if (!keyToNode.containsKey(from)) {
+      addNode(from);
+    }
+    if (!keyToNode.containsKey(to)) {
+      addNode(to);
+    }
     keyToNode.get(from).addEdge(keyToNode.get(to));
   }
 

@@ -25,7 +25,23 @@ package harp.script;
  */
 public interface JobLinker {
 
-  // TODO Throw EvaluationException?
+  /**
+   * Links Harp scripts into a HarpJob.
+   *
+   * @throws LinkException if there is an error during linking
+   */
   HarpJob link();
 
+  public static final class LinkException extends RuntimeException {
+
+    private static final long serialVersionUID = 1L;
+
+    public LinkException() {
+      super();
+    }
+
+    public LinkException(Throwable cause) {
+      super(cause);
+    }
+  }
 }

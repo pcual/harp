@@ -12,3 +12,6 @@
 - Figure out how root.harp fits into overall evaluation!
 
 - Do some profiling to figure out if evaluating so many groovy scripts will fill up PermGen
+
+- Figure out how to specify multiple executables. How do you run every executable in a folder? In a tree, recursively? From a list of names?
+  - Fix the assumption of one executable (in the command line, in HarpJob, in linking, etc. etc.)
