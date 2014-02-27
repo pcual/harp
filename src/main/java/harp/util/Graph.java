@@ -40,6 +40,10 @@ public final class Graph<T> {
   }
 
   public void addNode(T data) {
+    if (keyToNode.containsKey(data)) {
+      return;
+    }
+    Preconditions.checkNotNull(data);
     Node<T> newNode = new Node<>(data);
     nodes.add(newNode);
     keyToNode.put(data, newNode);

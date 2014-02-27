@@ -27,8 +27,10 @@ import java.util.Map;
  */
 public final class ScriptGraph {
 
- private final Map<String, String> scriptContents;
- private final Graph<String> scriptDependencies;
+  private final static String LINKED_FILE_HEADER = "/* Linked script: %s */\n";
+
+  private final Map<String, String> scriptContents;
+  private final Graph<String> scriptDependencies;
 
   // TODO static factory method?
   public ScriptGraph(Map<String, String> scriptContents, Graph<String> scriptDependencies) {
@@ -43,7 +45,9 @@ public final class ScriptGraph {
       if (!scriptContents.containsKey(scriptName)) {
         throw new IllegalStateException("Unknown script name: " + scriptName);
       }
+      out.append(String.format(LINKED_FILE_HEADER, scriptName));
       out.append(scriptContents.get(scriptName));
+      out.append("\n");
     }
     return out.toString();
   }

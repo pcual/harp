@@ -39,6 +39,12 @@ task(integrationTestCustomResource, type: JavaExec) {
   args = [ "run", "sayHello", "src/test/integration/custom_resource/run.harp" ]
 }
 
+task(integrationTestSimpleLinking, type: JavaExec) {
+  main = 'harp.HarpMain'
+  classpath = sourceSets.main.runtimeClasspath
+  args = [ "run", "helloTest", "src/test/integration/local_linker_simple/sub/run.harp" ]
+}
+
 task allTests {
 
   dependsOn test

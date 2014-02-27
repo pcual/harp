@@ -1,3 +1,11 @@
-class A {
-  def a() { println "A!" }
+class HelloExecutable implements harp.executable.Executable {
+
+  String name
+  List<String> args = [ "echo", "Hello!" ]
+  List<String> resources = []
+
+  static of(Map m) {
+    assert m.name
+    return new HelloExecutable(name: m.name)
+  }
 }

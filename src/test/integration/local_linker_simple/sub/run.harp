@@ -1,4 +1,5 @@
 harpInclude "parent.harp"
 
-def myInstance = new A()
-myInstance.a()
+executable HelloExecutable.of(
+  name: "helloTest",
+)

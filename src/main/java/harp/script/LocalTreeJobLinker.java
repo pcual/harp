@@ -99,7 +99,6 @@ public final class LocalTreeJobLinker implements JobLinker {
 
     String scriptRelativePath = this.rootDir.relativize(scriptPath).toString();
     scriptContents.put(scriptRelativePath, NEWLINE_JOINER.join(lines));
-    scriptDependencies.addNode(scriptRelativePath);
 
     for (String line : lines) {
       Matcher lineMatcher = INCLUDE_PATTERN.matcher(line);
