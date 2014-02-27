@@ -18,7 +18,7 @@ package harp.script;
 
 /**
  * An interface for objects that assemble the Harp scripts in some context (such as the current
- * working directory or repository) into a HarpJob.
+ * working directory or repository) into a {@link ScriptGraph}.
  *
  * Conceptually, a {@code JobLinker} concatenates all the needed Harp scripts to perform a
  * particular task, such as running a single Executable.
@@ -26,11 +26,11 @@ package harp.script;
 public interface JobLinker {
 
   /**
-   * Links Harp scripts into a HarpJob.
+   * Links Harp scripts into a {@code ScriptGraph}.
    *
    * @throws LinkException if there is an error during linking
    */
-  HarpJob link();
+  ScriptGraph link();
 
   public static final class LinkException extends RuntimeException {
 

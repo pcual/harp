@@ -17,8 +17,6 @@
 package harp;
 
 import harp.script.HarpJob;
-import com.google.common.base.Charsets;
-import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
@@ -26,8 +24,7 @@ import com.google.common.collect.ImmutableMap;
 import harp.dispatch.Dispatcher;
 import harp.dispatch.LocalDispatcher;
 import harp.script.LocalTreeJobLinker;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import harp.script.ScriptGraph;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -92,13 +89,9 @@ public final class HarpMain {
     String harpScriptPath = args[2];
 
     // TODO Choose a linker from the command line or some configuration means, possibly root.harp
-    // TODO uncomment this when it's ready!
-    //HarpJob thisJob = new LocalTreeJobLinker(harpScriptPath).link();
+    ScriptGraph linkedScripts = new LocalTreeJobLinker(harpScriptPath).link();
 
-    String harpScriptText = Joiner.on("\n").join(
-        Files.readAllLines(Paths.get(harpScriptPath), Charsets.UTF_8));
-
-    HarpJob thisJob = new HarpJob(harpScriptText, ImmutableList.of(executableName));
+    HarpJob thisJob = new HarpJob(linkedScripts, ImmutableList.of(executableName));
 
     // TODO Choose a dispatcher from the command line or some configuration means, possibly
     // root.harp

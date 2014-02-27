@@ -68,7 +68,7 @@ public final class LocalTreeJobLinker implements JobLinker {
 
   // TODO tests!!!! then an integration test for correctly executing the concatenated script
   @Override
-  public HarpJob link() {
+  public ScriptGraph link() {
     this.rootDir = findRootDir();
 
     Set<Path> scriptsToRead = new HashSet<>();
@@ -82,9 +82,7 @@ public final class LocalTreeJobLinker implements JobLinker {
       scriptsToRead.remove(nextScript);
     }
 
-    System.err.println(scriptContents);
-    System.err.println(scriptDependencies.topologicallySorted());
-    throw new RuntimeException("stopping for testing");
+    return new ScriptGraph(scriptContents, scriptDependencies);
   }
 
   private void processFile(
@@ -101,6 +99,7 @@ public final class LocalTreeJobLinker implements JobLinker {
 
     String scriptRelativePath = this.rootDir.relativize(scriptPath).toString();
     scriptContents.put(scriptRelativePath, NEWLINE_JOINER.join(lines));
+    scriptDependencies.addNode(scriptRelativePath);
 
     for (String line : lines) {
       Matcher lineMatcher = INCLUDE_PATTERN.matcher(line);

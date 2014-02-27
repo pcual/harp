@@ -34,19 +34,19 @@ import java.util.List;
 // TODO use a per-file map or graph instead of one big string
 public final class HarpJob {
 
-  private final String harpScript;
+  private final ScriptGraph scriptGraph;
   private final ImmutableList<String> executablesToRun;
 
   // TODO take a collection of scripts
   // TODO static factory method instead of constructor?
-  public HarpJob(String harpScript, List<String> executablesToRun) {
-    this.harpScript = Preconditions.checkNotNull(harpScript);
+  public HarpJob(ScriptGraph scriptGraph, List<String> executablesToRun) {
+    this.scriptGraph = Preconditions.checkNotNull(scriptGraph);
     Preconditions.checkArgument(executablesToRun.size() > 0);
     this.executablesToRun = ImmutableList.copyOf(executablesToRun);
   }
 
-  public String getScript() {
-    return harpScript;
+  public String getConcatenatedScript() {
+    return scriptGraph.getConcatenatedScript();
   }
 
   public List<String> getExecutablesToRun() {

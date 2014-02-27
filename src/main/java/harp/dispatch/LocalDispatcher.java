@@ -40,7 +40,7 @@ public final class LocalDispatcher implements Dispatcher {
     String executableName = job.getExecutablesToRun().get(0);
     System.out.println("Running executable '" + executableName + "' locally.");
 
-    Context context = GroovyRunner.parseHarpScript(job.getScript());
+    Context context = GroovyRunner.parseHarpScript(job.getConcatenatedScript());
 
     Executable executableToRun = null;
     for (Executable exec : context.getExecutables()) {
