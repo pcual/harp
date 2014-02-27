@@ -1,4 +1,5 @@
-executable {
-    name "printDate"
-    args "date"
-}
+executable harp.executable.CommandExecutable.of(
+  name: "printDate",
+  args: [ "date" ],
+  resources: [],
+)

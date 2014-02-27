@@ -28,26 +28,9 @@ import java.util.List;
 import junit.framework.TestCase;
 
 /**
- * TODO
+ * Tests various declarations using HarpScript base methods.
  */
 public class HarpScriptTest extends TestCase {
-
-  public void testDeclareExecutableWithClosure() {
-    String script = Joiner.on("\n").join(
-        "executable {",
-        "  name 'myExec'",
-        "  args 'arg1', 'arg2', 'arg3'",
-        "  resources 'res1', 'res2', 'res3'",
-        "}"
-        );
-    Context result = GroovyRunner.parseHarpScript(script);
-
-    List<Executable> executables = result.getExecutables();
-    assertEquals(1, executables.size());
-    assertEquals("myExec", executables.get(0).getName());
-    assertEquals(ImmutableList.of("arg1", "arg2", "arg3"), executables.get(0).getArgs());
-    assertEquals(ImmutableList.of("res1", "res2", "res3"), executables.get(0).getResources());
-  }
 
   public void testDeclareExecutableWithMap() {
     String script = Joiner.on("\n").join(

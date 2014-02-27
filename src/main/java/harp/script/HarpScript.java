@@ -16,8 +16,6 @@
 
 package harp.script;
 
-import harp.executable.ExecutableBuilder;
-import groovy.lang.Closure;
 import groovy.lang.Script;
 import harp.dispatch.Dispatcher;
 import harp.executable.Executable;
@@ -32,20 +30,6 @@ public abstract class HarpScript extends Script {
   /**
    * TODO
    */
-  public void executable(Closure<?> closure) {
-    closure.setResolveStrategy(Closure.DELEGATE_ONLY);
-    ExecutableBuilder builder = new ExecutableBuilder();
-    closure.setDelegate(builder);
-    closure.call();
-    Executable executable = builder.build();
-    getMyContextBuilder().addExecutable(executable);
-  }
-
-  /**
-   * TODO
-   */
-  // TODO remove this method and only use the closure method? Why do we need "clever", open-ended
-  // Executable implementations anyway?
   public void executable(Executable executable) {
     getMyContextBuilder().addExecutable(executable);
   }

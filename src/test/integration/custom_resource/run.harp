@@ -19,8 +19,8 @@ resource HelloResource.of(
   message: "Hello from a HelloResource!",
 )
 
-executable {
-  name "sayHello"
-  args "echo", "Done saying hello!"
-  resources "someHelloResource"
-}
+executable harp.executable.CommandExecutable.of(
+  name: "sayHello",
+  args: [ "echo", "Done saying hello!" ],
+  resources: [ "someHelloResource" ],
+)

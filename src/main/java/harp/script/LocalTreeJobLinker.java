@@ -43,6 +43,7 @@ import java.util.regex.Pattern;
 // TODO integration test parsing multiple .harp files in multiple dir levels
 // TODO figure out how root.harp fits into overall evaluation!
 // TODO what if we want to link for a set of scripts/executables?
+// TODO unit test: one file, no includes
 public final class LocalTreeJobLinker implements JobLinker {
 
   private static final String ROOT_FILE_NAME = "root.harp";
@@ -99,6 +100,7 @@ public final class LocalTreeJobLinker implements JobLinker {
 
     String scriptRelativePath = this.rootDir.relativize(scriptPath).toString();
     scriptContents.put(scriptRelativePath, NEWLINE_JOINER.join(lines));
+    scriptDependencies.addNode(scriptRelativePath);
 
     for (String line : lines) {
       Matcher lineMatcher = INCLUDE_PATTERN.matcher(line);
