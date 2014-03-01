@@ -73,4 +73,41 @@ public class LocalTreeJobLinkerTest extends TestCase {
     ScriptGraph linked = new LocalTreeJobLinker(tempDir.resolve("run.harp").toString()).link();
     assertScriptConcatenation(linked.getConcatenatedScript(), contents, "run.harp");
   }
+
+  public void testParentAndChild() throws Exception {
+    Map<String, String> contents = ImmutableMap.of(
+        "root.harp", "",
+        "parent.harp", "parent",
+        "child.harp", "harpInclude 'parent.harp'\nchild"
+    );
+    setTempDirContents(contents);
+    ScriptGraph linked = new LocalTreeJobLinker(tempDir.resolve("child.harp").toString()).link();
+    assertScriptConcatenation(
+        linked.getConcatenatedScript(), contents, "parent.harp", "child.harp");
+  }
+
+  public void testThreeLevels() throws Exception {
+    Map<String, String> contents = ImmutableMap.of(
+        "root.harp", "",
+        "grandparent.harp", "grandparent",
+        "parent.harp", "harpInclude 'grandparent.harp'\nparent",
+        "child.harp", "harpInclude 'grandparent.harp'\nharpInclude 'parent.harp'\nchild"
+    );
+    setTempDirContents(contents);
+    ScriptGraph linked = new LocalTreeJobLinker(tempDir.resolve("child.harp").toString()).link();
+    assertScriptConcatenation(
+        linked.getConcatenatedScript(), contents, "grandparent.harp", "parent.harp", "child.harp");
+  }
+
+  public void testNonexistentInclude() throws Exception {
+    Map<String, String> contents = ImmutableMap.of(
+        "root.harp", "",
+        "run.harp", "harpInclude 'nonexistent.harp'\nblah"
+    );
+    setTempDirContents(contents);
+    try {
+      ScriptGraph linked = new LocalTreeJobLinker(tempDir.resolve("run.harp").toString()).link();
+      fail("Expected linking to fail for a nonexistent include, but it succeeded.");
+    } catch (JobLinker.LinkException expected) {}
+  }
 }

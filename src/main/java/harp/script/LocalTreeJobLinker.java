@@ -50,7 +50,7 @@ public final class LocalTreeJobLinker implements JobLinker {
    *   harpInclude "path/to/some/file.harp"
    */
   private static final Pattern INCLUDE_PATTERN = Pattern.compile(
-      "^\\s*harpInclude\\s*\"([\\w\\.-" + Pattern.quote(File.separator) + "]*)\"\\s*$");
+      "^\\s*harpInclude\\s*[\"']([\\w\\.-" + Pattern.quote(File.separator) + "]*)[\"']\\s*$");
 
   private static final Joiner NEWLINE_JOINER = Joiner.on("\n");
 
