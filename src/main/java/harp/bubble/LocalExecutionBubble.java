@@ -19,13 +19,10 @@ package harp.bubble;
 import com.google.common.base.Preconditions;
 import harp.executable.Executable;
 import harp.resource.Resource;
+import harp.util.DeletingFileVisitor;
 import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,28 +80,6 @@ final class LocalExecutionBubble implements ExecutionBubble {
       processBuilder.start();
     } catch (IOException ioEx) {
       throw new RuntimeException(ioEx);
-    }
-  }
-
-  /**
-   * A {@link FileVisitor} for walking a directory and deleting files. This is used to recursively
-   * delete the entire contents of a directory.
-   */
-  private static class DeletingFileVisitor extends SimpleFileVisitor<Path> {
-
-    @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-      Files.delete(file);
-      return FileVisitResult.CONTINUE;
-    }
-
-    @Override
-    public FileVisitResult postVisitDirectory(Path file, IOException exc) throws IOException {
-      if (exc != null) {
-        throw exc;
-      }
-      Files.delete(file);
-      return FileVisitResult.CONTINUE;
     }
   }
 }

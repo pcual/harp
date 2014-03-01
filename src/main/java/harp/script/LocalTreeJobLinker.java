@@ -40,10 +40,8 @@ import java.util.regex.Pattern;
  * the presence of a file {@code root.harp}, and concatenates the transitive closure of included
  * Harp scripts starting at a given path.
  */
-// TODO integration test parsing multiple .harp files in multiple dir levels
 // TODO figure out how root.harp fits into overall evaluation!
 // TODO what if we want to link for a set of scripts/executables?
-// TODO unit test: one file, no includes
 public final class LocalTreeJobLinker implements JobLinker {
 
   private static final String ROOT_FILE_NAME = "root.harp";

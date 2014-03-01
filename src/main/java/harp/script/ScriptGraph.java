@@ -16,6 +16,7 @@
 
 package harp.script;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import harp.util.Graph;
@@ -27,7 +28,7 @@ import java.util.Map;
  */
 public final class ScriptGraph {
 
-  private final static String LINKED_FILE_HEADER = "/* Linked script: %s */\n";
+  @VisibleForTesting final static String LINKED_FILE_HEADER = "/* Linked script: %s */\n";
 
   private final Map<String, String> scriptContents;
   private final Graph<String> scriptDependencies;
