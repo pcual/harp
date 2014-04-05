@@ -30,7 +30,8 @@ public interface JobLinker {
    *
    * @throws LinkException if there is an error during linking
    */
-  ScriptGraph link();
+  // TODO move up args into some LinkContext struct
+  ScriptGraph link(String startingPathString);
 
   public static final class LinkException extends RuntimeException {
 

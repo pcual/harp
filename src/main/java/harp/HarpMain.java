@@ -16,15 +16,26 @@
 
 package harp;
 
-import harp.script.HarpJob;
+import com.google.common.base.Charsets;
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import harp.dispatch.Dispatcher;
 import harp.dispatch.LocalDispatcher;
+import harp.script.HarpJob;
 import harp.script.LocalTreeJobLinker;
 import harp.script.ScriptGraph;
+import harp.script.root.Environment;
+import harp.script.root.RootContext;
+import harp.script.root.RootGroovyRunner;
+import harp.util.FileUtil;
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -69,30 +80,40 @@ public final class HarpMain {
     Preconditions.checkArgument(args[0].equals("run"));
     if (args.length != 3) {
       System.err.println("Harp 'run' usage:");
-      System.err.println("java -jar <path to harp jar> run EXECUTABLE CONFIG_FILE");
+      System.err.println("java -jar <path to harp jar> run ENVIRONMENT EXECUTABLE");
       System.err.println();
       System.err.println("Parameters:");
-      System.err.println("EXECUTABLE   name of the Harp executable to execute");
-      System.err.println("CONFIG_FILE  path to a Harp config file to parse");
+      System.err.println("ENVIRONMENT  name of the Harp Environment to use for execution");
+      System.err.println("EXECUTABLE   Harp-path of the Harp executable to execute");
       System.exit(1);
     }
 
-    // For now, look for the given executable and all its resources within a single file.
-    //
-    // TODO Figure out how to search for resources (at least) across directories, possibly
-    // bounded by the presence of some root harp config file.
-    //
-    // TODO Don't take the harp config file as a parameter! Enforce some convention like looking
-    // for files named 'HARP' or 'harp.conf' or 'run.harp'.
+    Optional<Path> potentialRootHarpFilePath = FileUtil.findUpward(
+        "root.harp", Paths.get("").toAbsolutePath());
+    if (!potentialRootHarpFilePath.isPresent()) {
+      throw new FileNotFoundException(
+          "No root.harp file was found in or above the present directory.");
+    }
+    Path rootHarpFilePath = potentialRootHarpFilePath.get();
 
-    String executableName = args[1];
-    String harpScriptPath = args[2];
+    String environmentName = args[1];
+    // TODO implement a real naming system for paths. A Harp path like run.harp:executable might be
+    // stupid.
+    String[] executablePathParts = args[2].split(":");
+    String executablePath = executablePathParts[0];
+    String executableName = executablePathParts[1];
 
-    // TODO Choose a linker from the command line or some configuration means, possibly root.harp
-    ScriptGraph linkedScripts = new LocalTreeJobLinker(harpScriptPath).link();
+    String rootHarpContents = new String(Files.readAllBytes(rootHarpFilePath), Charsets.UTF_8);
+    RootContext rootContext = RootGroovyRunner.parseRootHarpScript(rootHarpContents);
+    Environment environment = rootContext.getEnvironment(environmentName);
+
+    ScriptGraph linkedScripts = environment.getLinker().link(executablePath);
 
     HarpJob thisJob = new HarpJob(linkedScripts, ImmutableList.of(executableName));
 
+    // TODO move Dispatcher evaluation into root.harp, instead of evaluating everything in the
+    // local repo just to pick out a dispatcher?
+    //
     // TODO Choose a dispatcher from the command line or some configuration means, possibly
     // root.harp
     Dispatcher dispatcher = new LocalDispatcher("simpleCommandLineDispatcher");
@@ -116,7 +137,5 @@ public final class HarpMain {
   }
 
   private static void test(String[] args) throws Exception {
-    Preconditions.checkArgument(args[0].equals("test"));
-    new LocalTreeJobLinker(args[1]).link();
   }
 }

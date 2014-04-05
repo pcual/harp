@@ -24,25 +24,29 @@ compileJava {
 task(integrationTestSimple, type: JavaExec) {
   main = 'harp.HarpMain'
   classpath = sourceSets.main.runtimeClasspath
-  args = [ "run", "printDate", "src/test/integration/simple/run.harp" ]
+  workingDir = "src/test/integration/simple"
+  args = [ "run", "localTest", "run.harp:printDate" ]
 }
 
 task(integrationTestSimpleResource, type: JavaExec) {
   main = 'harp.HarpMain'
   classpath = sourceSets.main.runtimeClasspath
-  args = [ "run", "catFile", "src/test/integration/simple_with_resource/run.harp" ]
+  workingDir = "src/test/integration/simple_with_resource"
+  args = [ "run", "localTest", "run.harp:catFile" ]
 }
 
 task(integrationTestCustomResource, type: JavaExec) {
   main = 'harp.HarpMain'
   classpath = sourceSets.main.runtimeClasspath
-  args = [ "run", "sayHello", "src/test/integration/custom_resource/run.harp" ]
+  workingDir = "src/test/integration/custom_resource"
+  args = [ "run", "localTest", "run.harp:sayHello" ]
 }
 
 task(integrationTestSimpleLinking, type: JavaExec) {
   main = 'harp.HarpMain'
   classpath = sourceSets.main.runtimeClasspath
-  args = [ "run", "helloTest", "src/test/integration/local_linker_simple/sub/run.harp" ]
+  workingDir = "src/test/integration/local_linker_simple"
+  args = [ "run", "localTest", "sub/run.harp:helloTest" ]
 }
 
 task allTests {

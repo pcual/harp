@@ -18,7 +18,9 @@ package harp.script;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import harp.util.FileUtil;
 import harp.util.Graph;
 import java.io.File;
 import java.io.IOException;
@@ -54,21 +56,18 @@ public final class LocalTreeJobLinker implements JobLinker {
 
   private static final Joiner NEWLINE_JOINER = Joiner.on("\n");
 
-  private final Path startingPath;
   private Path rootDir;
 
-  // TODO static factory method?
-  public LocalTreeJobLinker(String startingPath) {
-    this.startingPath = Paths.get(Preconditions.checkNotNull(startingPath)).toAbsolutePath();
-    Preconditions.checkArgument(
-        Files.isRegularFile(this.startingPath),
-        "Expected a harp script at this path but didn't fine one: " + this.startingPath);
-  }
+  public LocalTreeJobLinker() {}
 
-  // TODO tests!!!! then an integration test for correctly executing the concatenated script
   @Override
-  public ScriptGraph link() {
-    this.rootDir = findRootDir();
+  public ScriptGraph link(String startingPathString) {
+    Path startingPath = Paths.get(Preconditions.checkNotNull(startingPathString)).toAbsolutePath();
+    Preconditions.checkArgument(
+        Files.isRegularFile(startingPath),
+        "Expected a harp script at this path but didn't find one: " + startingPath);
+
+    this.rootDir = findRootDir(startingPath);
 
     Set<Path> scriptsToRead = new HashSet<>();
     scriptsToRead.add(startingPath);
@@ -112,17 +111,14 @@ public final class LocalTreeJobLinker implements JobLinker {
     }
   }
 
-  private Path findRootDir() {
-    Path possibleRootDir = this.startingPath.getParent();
-    while (possibleRootDir != null) {
-      if (Files.isRegularFile(possibleRootDir.resolve(ROOT_FILE_NAME))) {
-        return possibleRootDir.toAbsolutePath();
-      } else {
-        possibleRootDir = possibleRootDir.getParent();
-      }
+  private Path findRootDir(Path startingPath) {
+    Optional<Path> possibleRootDir = FileUtil.findUpward(
+        ROOT_FILE_NAME, startingPath.getParent());
+    if (!possibleRootDir.isPresent()) {
+      throw new IllegalStateException(
+          "No root.harp file was found in or above the starting directory: "
+              + startingPath.getParent());
     }
-    throw new IllegalStateException(
-        "No root.harp file was found in or above the starting directory: "
-        + this.startingPath.getParent());
+    return possibleRootDir.get().getParent();
   }
 }

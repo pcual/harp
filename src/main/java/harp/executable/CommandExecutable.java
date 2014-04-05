@@ -32,7 +32,6 @@ public final class CommandExecutable implements Executable {
 
   @SuppressWarnings("unchecked")  // We're casting elements of a dynamic Groovy map.
   public static CommandExecutable of(Map<String, ?> groovyMap) {
-    System.out.println(groovyMap.getClass());
     Preconditions.checkArgument(groovyMap.containsKey("name"));
     Preconditions.checkArgument(groovyMap.containsKey("args"));
     Preconditions.checkArgument(groovyMap.containsKey("resources"));

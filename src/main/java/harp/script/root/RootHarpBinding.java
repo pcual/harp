@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Yash Parghi
+ * Copyright 2014 Yash Parghi
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package harp.script;
+package harp.script.root;
 
 import groovy.lang.Binding;
 
 /**
- * The Groovy Binding object used in evaluating Harp scripts.
+ * The Groovy Binding object used in evaluating root.harp scripts.
  */
-final class HarpBinding extends Binding {
+final class RootHarpBinding extends Binding {
 
-  private final ContextBuilder contextToBuild;
+  private final RootContextBuilder contextToBuild;
 
-  HarpBinding() {
-    contextToBuild = Context.builder();
+  RootHarpBinding() {
+    contextToBuild = new RootContextBuilder();
   }
 
-  ContextBuilder getContextBuilder() {
+  RootContextBuilder getRootContextBuilder() {
     return contextToBuild;
   }
 }

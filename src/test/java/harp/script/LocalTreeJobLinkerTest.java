@@ -70,7 +70,7 @@ public class LocalTreeJobLinkerTest extends TestCase {
         "run.harp", "blah"
     );
     setTempDirContents(contents);
-    ScriptGraph linked = new LocalTreeJobLinker(tempDir.resolve("run.harp").toString()).link();
+    ScriptGraph linked = new LocalTreeJobLinker().link(tempDir.resolve("run.harp").toString());
     assertScriptConcatenation(linked.getConcatenatedScript(), contents, "run.harp");
   }
 
@@ -81,7 +81,7 @@ public class LocalTreeJobLinkerTest extends TestCase {
         "child.harp", "harpInclude 'parent.harp'\nchild"
     );
     setTempDirContents(contents);
-    ScriptGraph linked = new LocalTreeJobLinker(tempDir.resolve("child.harp").toString()).link();
+    ScriptGraph linked = new LocalTreeJobLinker().link(tempDir.resolve("child.harp").toString());
     assertScriptConcatenation(
         linked.getConcatenatedScript(), contents, "parent.harp", "child.harp");
   }
@@ -94,7 +94,7 @@ public class LocalTreeJobLinkerTest extends TestCase {
         "child.harp", "harpInclude 'grandparent.harp'\nharpInclude 'parent.harp'\nchild"
     );
     setTempDirContents(contents);
-    ScriptGraph linked = new LocalTreeJobLinker(tempDir.resolve("child.harp").toString()).link();
+    ScriptGraph linked = new LocalTreeJobLinker().link(tempDir.resolve("child.harp").toString());
     assertScriptConcatenation(
         linked.getConcatenatedScript(), contents, "grandparent.harp", "parent.harp", "child.harp");
   }
@@ -106,7 +106,7 @@ public class LocalTreeJobLinkerTest extends TestCase {
     );
     setTempDirContents(contents);
     try {
-      ScriptGraph linked = new LocalTreeJobLinker(tempDir.resolve("run.harp").toString()).link();
+      ScriptGraph linked = new LocalTreeJobLinker().link(tempDir.resolve("run.harp").toString());
       fail("Expected linking to fail for a nonexistent include, but it succeeded.");
     } catch (JobLinker.LinkException expected) {}
   }

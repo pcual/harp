@@ -30,28 +30,28 @@ public abstract class HarpScript extends Script {
   /**
    * TODO
    */
-  public void executable(Executable executable) {
+  public final void executable(Executable executable) {
     getMyContextBuilder().addExecutable(executable);
   }
 
   /**
    * TODO
    */
-  public void resource(Resource resource) {
+  public final void resource(Resource resource) {
     getMyContextBuilder().addResource(resource);
   }
 
   /**
    * TODO
    */
-  public void node(NodeSpec nodeSpec) {
+  public final void node(NodeSpec nodeSpec) {
     getMyContextBuilder().addNodeSpec(nodeSpec);
   }
 
   /**
    * TODO
    */
-  public void dispatcher(Dispatcher dispatcher) {
+  public final void dispatcher(Dispatcher dispatcher) {
     getMyContextBuilder().addDispatcher(dispatcher);
   }
 
@@ -60,7 +60,7 @@ public abstract class HarpScript extends Script {
    */
   // TODO use this for something? Or bind it in HarpBinding instead of here, so that it's not
   // a part of the public HarpScript API?
-  public void harpInclude(String includePath) {
+  public final void harpInclude(String includePath) {
     // No op.
   }
 

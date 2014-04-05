@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Yash Parghi
+ * Copyright 2014 Yash Parghi
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,31 +14,32 @@
  * limitations under the License.
  */
 
-package harp.script;
+package harp.script.root;
 
 import groovy.lang.GroovyShell;
 import org.codehaus.groovy.control.CompilerConfiguration;
 
 /**
- * Logic for evaluating a Harp script.
+ * Logic for evaluating a root.harp script.
  */
-public final class GroovyRunner {
+// TODO Unit tests a la HarpScriptTest
+public final class RootGroovyRunner {
 
-  private GroovyRunner() {}  // Do not instantiate.
+  private RootGroovyRunner() {}  // Do not instantiate.
 
   /**
-   * Evaluates the text of a Harp script and returns a {@code Context} with all the parsed
-   * elements in it.
+   * Evaluates the text of a root.harp script and returns a {@code RootContext} with all the parsed
+   * {@link Environment}s in it.
    */
-  public static Context parseHarpScript(String scriptText) {
+  public static RootContext parseRootHarpScript(String scriptText) {
     CompilerConfiguration config = new CompilerConfiguration();
-    config.setScriptBaseClass(HarpScript.class.getCanonicalName());
+    config.setScriptBaseClass(RootHarpScript.class.getCanonicalName());
 
-    HarpBinding binding = new HarpBinding();
+    RootHarpBinding binding = new RootHarpBinding();
     GroovyShell shell = new GroovyShell(binding, config);
 
     shell.evaluate(scriptText);
 
-    return binding.getContextBuilder().build();
+    return binding.getRootContextBuilder().build();
   }
 }

@@ -53,7 +53,7 @@ final class ContextBuilder {
   void addResource(Resource resource) {
     // TODO figure out what equality means for resources. Maybe the same name?
     Preconditions.checkArgument(
-        !executables.contains(resource),
+        !resources.contains(resource),
         "This resource has already been declared!");
     resources.add(resource);
   }
