@@ -16,6 +16,7 @@
 
 package harp.script.root;
 
+import harp.dispatch.Dispatcher;
 import harp.script.JobLinker;
 
 /**
@@ -34,14 +35,12 @@ public interface Environment {
   String getName();
 
   /**
-   * Returns the JobLinker specified by this Environment.
+   * Returns the {@link JobLinker} specified by this Environment.
    */
   JobLinker getLinker();
 
   /**
-   * Returns the name of the {@link harp.dispatch.Dispatcher} specified by this Environment.
-   *
-   * The Dispatcher itself is parsed from the HarpJob assembled by this Environment's JobLinker.
+   * Returns the {@link Dispatcher} specified by this Environment.
    */
-  String getDispatcherName();
+  Dispatcher getDispatcher();
 }

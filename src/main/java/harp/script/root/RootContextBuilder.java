@@ -17,6 +17,7 @@
 package harp.script.root;
 
 import com.google.common.base.Preconditions;
+import harp.dispatch.Dispatcher;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

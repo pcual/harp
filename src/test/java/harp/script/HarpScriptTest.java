@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-package harp;
+package harp.script;
 
-import harp.script.Context;
-import harp.script.GroovyRunner;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
-import harp.dispatch.Dispatcher;
 import harp.executable.Executable;
 import harp.node.NodeSpec;
 import harp.resource.Resource;
@@ -70,7 +67,6 @@ public class HarpScriptTest extends TestCase {
     assertEquals(ImmutableList.of("res1", "res2", "res3"), executables.get(0).getResources());
   }
 
-  // TODO Find a sleeker resource declaration syntax and test it.
   public void testDeclareResourceWithClass() {
     String script = Joiner.on("\n").join(
         "public class MyResource implements harp.resource.Resource {",
@@ -86,22 +82,6 @@ public class HarpScriptTest extends TestCase {
     List<Resource> resources = result.getResources();
     assertEquals(1, resources.size());
     assertEquals("myResource", resources.get(0).getName());
-  }
-
-  public void testDeclareDispatcher() {
-    String script = Joiner.on("\n").join(
-        "public class MyDispatcher implements harp.dispatch.Dispatcher {",
-        "  String name = 'myDispatcher'",
-        "  void dispatch(harp.script.HarpJob job) {}",
-        "}",
-        "dispatcher new MyDispatcher()"
-        );
-
-    Context result = GroovyRunner.parseHarpScript(script);
-
-    List<Dispatcher> dispatchers = result.getDispatchers();
-    assertEquals(1, dispatchers.size());
-    assertEquals("myDispatcher", dispatchers.get(0).getName());
   }
 
   public void testDeclareNodeSpec() {

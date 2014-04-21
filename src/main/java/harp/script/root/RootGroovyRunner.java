@@ -22,7 +22,6 @@ import org.codehaus.groovy.control.CompilerConfiguration;
 /**
  * Logic for evaluating a root.harp script.
  */
-// TODO Unit tests a la HarpScriptTest
 public final class RootGroovyRunner {
 
   private RootGroovyRunner() {}  // Do not instantiate.

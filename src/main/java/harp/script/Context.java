@@ -34,17 +34,14 @@ public final class Context {
   private final List<Executable> executables;
   private final List<Resource> resources;
   private final List<NodeSpec> nodeSpecs;
-  private final List<Dispatcher> dispatchers;
 
   Context(
       List<Executable> executables,
       List<Resource> resources,
-      List<NodeSpec> nodeSpecs,
-      List<Dispatcher> dispatchers) {
+      List<NodeSpec> nodeSpecs) {
     this.executables = ImmutableList.copyOf(executables);
     this.resources = ImmutableList.copyOf(resources);
     this.nodeSpecs = ImmutableList.copyOf(nodeSpecs);
-    this.dispatchers = ImmutableList.copyOf(dispatchers);
   }
 
   /**
@@ -67,13 +64,6 @@ public final class Context {
    */
   public List<NodeSpec> getNodeSpecs() {
     return nodeSpecs;
-  }
-
-    /**
-   * TODO
-   */
-  public List<Dispatcher> getDispatchers() {
-    return dispatchers;
   }
 
   /**

@@ -25,7 +25,6 @@ import com.google.common.collect.ImmutableMap;
 import harp.dispatch.Dispatcher;
 import harp.dispatch.LocalDispatcher;
 import harp.script.HarpJob;
-import harp.script.LocalTreeJobLinker;
 import harp.script.ScriptGraph;
 import harp.script.root.Environment;
 import harp.script.root.RootContext;

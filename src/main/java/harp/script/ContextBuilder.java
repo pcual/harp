@@ -17,7 +17,6 @@
 package harp.script;
 
 import com.google.common.base.Preconditions;
-import harp.dispatch.Dispatcher;
 import harp.executable.Executable;
 import harp.node.NodeSpec;
 import harp.resource.Resource;
@@ -32,13 +31,11 @@ final class ContextBuilder {
   private final List<Executable> executables;
   private final List<Resource> resources;
   private final List<NodeSpec> nodeSpecs;
-  private final List<Dispatcher> dispatchers;
 
   ContextBuilder() {
     executables = new ArrayList<>();
     resources = new ArrayList<>();
     nodeSpecs = new ArrayList<>();
-    dispatchers = new ArrayList<>();
   }
 
   void addExecutable(Executable executable) {
@@ -66,15 +63,7 @@ final class ContextBuilder {
     nodeSpecs.add(nodeSpec);
   }
 
-  void addDispatcher(Dispatcher dispatcher) {
-    // TODO figure out what equality means for dispatchers. Maybe the same name?
-    Preconditions.checkArgument(
-        !dispatchers.contains(dispatcher),
-        "This Dispatcher has already been declared!");
-    dispatchers.add(dispatcher);
-  }
-
   Context build() {
-    return new Context(executables, resources, nodeSpecs, dispatchers);
+    return new Context(executables, resources, nodeSpecs);
   }
 }

@@ -1,7 +1,7 @@
 localEnvironment = [
   getName: { "localTest" },
   getLinker: { new harp.script.LocalTreeJobLinker() },
-  getDispatcherName: { "whateverDispatcher" },
+  getDispatcher: { new harp.dispatch.LocalDispatcher() },
 ] as harp.script.root.Environment
 
 environment localEnvironment

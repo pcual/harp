@@ -42,7 +42,6 @@ import java.util.regex.Pattern;
  * the presence of a file {@code root.harp}, and concatenates the transitive closure of included
  * Harp scripts starting at a given path.
  */
-// TODO figure out how root.harp fits into overall evaluation!
 // TODO what if we want to link for a set of scripts/executables?
 public final class LocalTreeJobLinker implements JobLinker {
 

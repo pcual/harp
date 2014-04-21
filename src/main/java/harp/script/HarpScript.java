@@ -17,7 +17,6 @@
 package harp.script;
 
 import groovy.lang.Script;
-import harp.dispatch.Dispatcher;
 import harp.executable.Executable;
 import harp.node.NodeSpec;
 import harp.resource.Resource;
@@ -46,13 +45,6 @@ public abstract class HarpScript extends Script {
    */
   public final void node(NodeSpec nodeSpec) {
     getMyContextBuilder().addNodeSpec(nodeSpec);
-  }
-
-  /**
-   * TODO
-   */
-  public final void dispatcher(Dispatcher dispatcher) {
-    getMyContextBuilder().addDispatcher(dispatcher);
   }
 
   /**

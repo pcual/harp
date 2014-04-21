@@ -17,7 +17,9 @@
 package harp.script.root;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import harp.dispatch.Dispatcher;
 import java.util.List;
 import java.util.Map;
 
