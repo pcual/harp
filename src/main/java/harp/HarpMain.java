@@ -110,12 +110,7 @@ public final class HarpMain {
 
     HarpJob thisJob = new HarpJob(linkedScripts, ImmutableList.of(executableName));
 
-    // TODO move Dispatcher evaluation into root.harp, instead of evaluating everything in the
-    // local repo just to pick out a dispatcher?
-    //
-    // TODO Choose a dispatcher from the command line or some configuration means, possibly
-    // root.harp
-    Dispatcher dispatcher = new LocalDispatcher("simpleCommandLineDispatcher");
+    Dispatcher dispatcher = environment.getDispatcher();
     dispatcher.dispatch(thisJob);
 
     System.out.println("Done executing " + executableName);
