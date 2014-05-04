@@ -23,7 +23,6 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import harp.dispatch.Dispatcher;
-import harp.dispatch.LocalDispatcher;
 import harp.script.HarpJob;
 import harp.script.ScriptGraph;
 import harp.script.root.Environment;

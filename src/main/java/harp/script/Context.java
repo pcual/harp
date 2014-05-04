@@ -17,7 +17,6 @@
 package harp.script;
 
 import com.google.common.collect.ImmutableList;
-import harp.dispatch.Dispatcher;
 import harp.executable.Executable;
 import harp.node.NodeSpec;
 import harp.resource.Resource;
