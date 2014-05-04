@@ -24,4 +24,7 @@ package harp.node;
  */
 public interface NodeBridge {
 
+  // TODO a method for sending a HarpJob over the wire, inc. response/return type
+
+  // TODO a method for monitoring or asking questions about a sent job
 }
