@@ -16,6 +16,8 @@
 
 package harp.script.node;
 
+import com.google.common.base.Joiner;
+import harp.node.NodeSpec;
 import junit.framework.TestCase;
 
 /**
@@ -24,6 +26,28 @@ import junit.framework.TestCase;
 public class NodeHarpScriptTest extends TestCase {
 
   public void testDeclareNodeSpec() {
-    // TODO
+    String script = Joiner.on("\n").join(
+        "myNode = [",
+        "  start: {},",
+        "  stop: {}",
+        "] as harp.node.Node",
+        "",
+        "myBridge = [",
+        "] as harp.node.NodeBridge",
+        "",
+        "myNodeSpec = [",
+        "  getName: { 'myNodeSpec' },",
+        "  getNode: { myNode },",
+        "  getBridge: { myBridge }",
+        "] as harp.node.NodeSpec",
+        "",
+        "node myNodeSpec");
+
+    NodeContext result = NodeGroovyRunner.parseHarpScript(script);
+
+    NodeSpec declaredNodeSpec = result.getNodeSpec("myNodeSpec");
+    assertEquals("myNodeSpec", declaredNodeSpec.getName());
+    assertNotNull(declaredNodeSpec.getNode());
+    assertNotNull(declaredNodeSpec.getBridge());
   }
 }

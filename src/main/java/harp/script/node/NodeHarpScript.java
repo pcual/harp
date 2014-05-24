@@ -17,10 +17,19 @@
 package harp.script.node;
 
 import groovy.lang.Script;
+import harp.node.NodeSpec;
 
 /**
  * The base Groovy script class for node.harp.
  */
 public abstract class NodeHarpScript extends Script {
 
+  // TODO: Is it *more* or *less* intuitive to declare a NodeSpec with "node myNodeSpec"?
+  public void node(NodeSpec nodeSpec) {
+    getMyNodeContextBuilder().addNode(nodeSpec);
+  }
+
+  private NodeContextBuilder getMyNodeContextBuilder() {
+    return ((NodeHarpBinding) this.getBinding()).getNodeContextBuilder();
+  }
 }

@@ -16,14 +16,29 @@
 
 package harp.script.node;
 
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableMap;
 import harp.node.NodeSpec;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A container for all the {@link NodeSpec}s parsed from a node.harp script.
  */
 public final class NodeContext {
 
-  public NodeSpec getNodeSpec(String nodeSpecName) {
-    throw new UnsupportedOperationException("TODO");
+  private final Map<String, NodeSpec> namesToNodes;
+
+  NodeContext(List<NodeSpec> nodes) {
+    ImmutableMap.Builder<String, NodeSpec> builder = ImmutableMap.builder();
+    for (NodeSpec node : nodes) {
+      builder.put(node.getName(), node);
+    }
+    this.namesToNodes = builder.build();
+  }
+
+  public NodeSpec getNodeSpec(String name) {
+    Preconditions.checkArgument(namesToNodes.containsKey(name), "No such NodeSpec " + name);
+    return namesToNodes.get(name);
   }
 }

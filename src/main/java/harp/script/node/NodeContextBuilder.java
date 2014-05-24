@@ -16,15 +16,36 @@
 
 package harp.script.node;
 
+import com.google.common.base.Preconditions;
+import harp.node.NodeSpec;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * A builder for assembling a NodeContext in the course of evaluating a node.harp script.
  */
 public final class NodeContextBuilder {
 
+  private final Set<String> nodeNames;
+  private final List<NodeSpec> nodes;
+
   public NodeContextBuilder() {
+    this.nodeNames = new HashSet<>();
+    this.nodes = new ArrayList<>();
+  }
+
+  void addNode(NodeSpec nodeSpec) {
+    Preconditions.checkNotNull(nodeSpec.getName(), "A NodeSpec must have a non-null name.");
+    Preconditions.checkState(
+        !nodeNames.contains(nodeSpec.getName()),
+        "A NodeSpec named %s has already been declared.", nodeSpec.getName());
+    nodeNames.add(nodeSpec.getName());
+    nodes.add(nodeSpec);
   }
 
   NodeContext build() {
-    throw new UnsupportedOperationException("TODO");
+    return new NodeContext(nodes);
   }
 }

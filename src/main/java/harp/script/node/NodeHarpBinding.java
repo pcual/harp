@@ -23,11 +23,13 @@ import groovy.lang.Binding;
  */
 final class NodeHarpBinding extends Binding {
 
+  private final NodeContextBuilder contextToBuild;
+
   NodeHarpBinding() {
-    // TODO
+    this.contextToBuild = new NodeContextBuilder();
   }
 
   NodeContextBuilder getNodeContextBuilder() {
-    throw new UnsupportedOperationException("TODO");
+    return this.contextToBuild;
   }
 }
