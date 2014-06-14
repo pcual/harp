@@ -16,17 +16,28 @@
 
 package harp.node;
 
-import harp.script.HarpJob;
-
 /**
- * An interface for interacting with a running {@link Node}.
- *
- * Typically, a {@link harp.dispatch.Dispatcher} uses a {@code NodeBridge} to send a job to a
- * {@code Node} and to monitor the job's progress.
+ * A struct with the results of sending a {@link harp.script.HarpJob} to a {@link Node}.
  */
-public interface NodeBridge {
+public final class SendJobResult {
 
-  SendJobResult sendJob(HarpJob job);
+  public static enum ResultType {
+    SUCCESS,
+    FAILURE;
+  }
 
-  // TODO a method for monitoring or asking questions about a sent job
+  public static SendJobResult ofResult(ResultType resultType) {
+    return new SendJobResult(resultType);
+  }
+
+
+  private final ResultType resultType;
+
+  private SendJobResult(ResultType resultType) {
+    this.resultType = resultType;
+  }
+
+  public ResultType getResult() {
+    return this.resultType;
+  }
 }

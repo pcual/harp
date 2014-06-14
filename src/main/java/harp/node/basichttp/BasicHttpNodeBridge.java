@@ -17,11 +17,21 @@
 package harp.node.basichttp;
 
 import harp.node.NodeBridge;
+import harp.node.SendJobResult;
+import harp.script.HarpJob;
 
 /**
  * A NodeBridge that communicates with a BasicHttpNode by HTTP requests.
  */
 class BasicHttpNodeBridge implements NodeBridge {
 
+  // TODO port configuration
+  private static final int PORT = 9321;
+
   // TODO
+
+  @Override
+  public SendJobResult sendJob(HarpJob job) {
+    return null;
+  }
 }

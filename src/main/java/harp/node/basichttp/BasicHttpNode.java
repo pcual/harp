@@ -29,11 +29,13 @@ import java.net.InetSocketAddress;
  */
 class BasicHttpNode implements Node {
 
+  // TODO port configuration
+  private static final int PORT = 9321;
+
   @Override
   public void start() {
     try {
-      // TODO port configuration
-      HttpServer server = HttpServer.create(new InetSocketAddress(9321), 0);
+      HttpServer server = HttpServer.create(new InetSocketAddress(PORT), 0);
       server.createContext("/", new HelloHandler());
       System.out.println("Running BasicHttpNode...");
       server.start();
