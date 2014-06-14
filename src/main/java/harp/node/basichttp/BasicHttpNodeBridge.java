@@ -21,6 +21,7 @@ import harp.node.NodeBridge;
 /**
  * A NodeBridge that communicates with a BasicHttpNode by HTTP requests.
  */
-public class BasicHttpNodeBridge implements NodeBridge {
+class BasicHttpNodeBridge implements NodeBridge {
 
+  // TODO
 }

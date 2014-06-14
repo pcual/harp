@@ -31,6 +31,10 @@ public class BasicHttpNodeSpec implements NodeSpec {
   private final BasicHttpNode node;
   private final BasicHttpNodeBridge bridge;
 
+  public static BasicHttpNodeSpec create(String name) {
+    return new BasicHttpNodeSpec(name, new BasicHttpNode(), new BasicHttpNodeBridge());
+  }
+
   private BasicHttpNodeSpec(String name, BasicHttpNode node, BasicHttpNodeBridge bridge) {
     Preconditions.checkArgument(!Strings.isNullOrEmpty(name));
     this.name = name;

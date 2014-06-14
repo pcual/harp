@@ -23,6 +23,8 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import harp.dispatch.Dispatcher;
+import harp.node.NodeSpec;
+import harp.node.basichttp.BasicHttpNodeSpec;
 import harp.script.HarpJob;
 import harp.script.ScriptGraph;
 import harp.script.root.Environment;
@@ -130,5 +132,7 @@ public final class HarpMain {
   }
 
   private static void test(String[] args) throws Exception {
+    NodeSpec basicSpec = BasicHttpNodeSpec.create("testNode");
+    basicSpec.getNode().start();
   }
 }

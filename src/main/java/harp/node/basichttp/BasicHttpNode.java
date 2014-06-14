@@ -16,20 +16,48 @@
 
 package harp.node.basichttp;
 
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 import harp.node.Node;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
 
 /**
  * A node that is managed by HTTP requests.
  */
-public class BasicHttpNode implements Node {
+class BasicHttpNode implements Node {
 
   @Override
   public void start() {
-    throw new UnsupportedOperationException("TODO");
+    try {
+      // TODO port configuration
+      HttpServer server = HttpServer.create(new InetSocketAddress(9321), 0);
+      server.createContext("/", new HelloHandler());
+      System.out.println("Running BasicHttpNode...");
+      server.start();
+    } catch (IOException ex) {
+      // TODO better exception handling
+      throw new RuntimeException(ex);
+    }
   }
 
   @Override
   public void stop() {
     throw new UnsupportedOperationException("TODO");
+  }
+
+  private static class HelloHandler implements HttpHandler {
+
+    @Override
+    public void handle(HttpExchange exchange) throws IOException {
+      // Thanks to: http://stackoverflow.com/a/3732328
+      String response = "Hello!";
+      exchange.sendResponseHeaders(200, response.length());
+      OutputStream os = exchange.getResponseBody();
+      os.write(response.getBytes());
+      os.close();
+    }
   }
 }
